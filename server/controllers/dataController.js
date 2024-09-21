@@ -42,7 +42,16 @@ class DataController {
   deleteVisit(req, res) {
     const id = req.params.id;
 
-    // TODO: delete all files of visit
+    const visit = getDB().find({ id }).value();
+
+    if (!visit) {
+      return res.status(404).json({ message: 'Visit not found' });
+    }
+
+    visit.reports.forEach((fileName) => {
+      const fullFilePath = path.join(uploadsFolderPath, fileName);
+      fs.unlink(fullFilePath);
+    });
 
     getDB().remove({ id }).write();
 
