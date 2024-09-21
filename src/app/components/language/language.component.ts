@@ -11,9 +11,9 @@ export class LanguageComponent {
   }
 
   readonly languages = [
-    { value: 'en-US', label: 'Eng' },
-    { value: 'uk-UA', label: 'Укр' },
-    { value: 'hu-HU', label: 'Mag' },
+    { value: 'en-US', label: '🇬🇧 Eng' },
+    { value: 'uk-UA', label: '🇺🇦 Укр' },
+    { value: 'hu-HU', label: '🇭🇺 Mag' },
   ];
 
   constructor(private readonly translate: TranslateService) {}
