@@ -1,16 +1,25 @@
+:host {
+  max-width: 400px;
+  width: 100%;
+}
+
+.container {
+  position: sticky;
+  top: 20px;
+}
+
 form, label, .reports {
   display: inline-flex;
   flex-direction: column;
 }
 
 form {
-  max-width: 400px;
   width: 100%;
   gap: 10px;
 }
 
 h2 {
-  margin: 50px 0 20px;
+  margin: 30px 0 20px;
 }
 
 .asterisk::after {

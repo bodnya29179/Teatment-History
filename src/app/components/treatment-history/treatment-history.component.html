@@ -7,21 +7,21 @@
     <table>
       <thead>
         <tr>
-          <th style="cursor:pointer;" (click)="changeSortOption('by-date')">
+          <th (click)="changeSortOption('by-date')">
             @if (sortOptionControl.value === 'by-date') {
               {{ sortDirectionControl.value === 'asc' ? '⬆' : '⬇' }}
             }
             {{ 'visit.date' | translate }}
           </th>
 
-          <th style="cursor:pointer;" (click)="changeSortOption('by-doctor')">
+          <th (click)="changeSortOption('by-doctor')">
             @if (sortOptionControl.value === 'by-doctor') {
               {{ sortDirectionControl.value === 'asc' ? '⬆' : '⬇' }}
             }
             {{ 'visit.doctor' | translate }}
           </th>
 
-          <th style="cursor:pointer;" (click)="changeSortOption('by-address')">
+          <th (click)="changeSortOption('by-address')">
             @if (sortOptionControl.value === 'by-address') {
               {{ sortDirectionControl.value === 'asc' ? '⬆' : '⬇' }}
             }

@@ -2,3 +2,12 @@
   display: block;
   padding: 0 30px 30px;
 }
+
+.container {
+  display: flex;
+  gap: 60px;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
+}
