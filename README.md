@@ -1,27 +1,45 @@
-# TreatmentHistory
+# Treatment History
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.7.
+This project is a web application that allows users to track their medical visits to various doctors. Users can log
+their visits, specifying the type of doctor, date, place, description of the issue, conclusion, and any files such as
+reports or prescriptions provided by the doctor. The backend uses a JSON database to store this information, and
+uploaded files are saved to a local directory.
 
-## Development server
+## Features
+- Add medical visits with details such as date, doctor type, place, and more.
+- Upload files (PDFs, DOCX, images) related to the visit, such as reports or prescriptions.
+- View visit history, sorted by date or doctor type.
+- Delete visits, including the removal of any uploaded files.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Installation
 
-## Code scaffolding
+### Prerequisites:
+- [Node.js (v12+)](https://nodejs.org/)
+- [Angular CLI](https://angular.dev/)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Steps:
 
-## Build
+- Clone the repository:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+   ```bash
+   git clone https://github.com/bodnya29179/treatment-history.git
+   cd treatment-history
+   ```
 
-## Running unit tests
+- Install dependencies:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+   ```bash
+   npm ci
+   ```
+  
+- Run the Angular app:
 
-## Running end-to-end tests
+   ```bash
+   npm run start
+   ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+The application should now be running at http://localhost:4200/.
 
-## Further help
+## License
+This project is licensed under the MIT License.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
