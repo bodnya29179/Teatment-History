@@ -1,0 +1,56 @@
+<div>
+  <h2>{{ 'addNewVisit' | translate }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="addVisit()">
+    <label>
+      <span>{{ 'visit.doctorName' | translate }}:</span>
+      <input type="text" formControlName="doctorName" />
+    </label>
+
+    <label>
+      <span class="asterisk">{{ 'visit.doctorType' | translate }}:</span>
+
+      <select formControlName="doctorType">
+        @for (type of doctorTypes; track $index) {
+          <option [value]="type.value">{{ type.label | translate }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      <span class="asterisk">{{ 'visit.date' | translate }}:</span>
+      <input type="date" formControlName="date" [max]="maxDate" />
+    </label>
+
+    <label>
+      <span class="asterisk">{{ 'visit.description' | translate }}:</span>
+      <textarea formControlName="description"></textarea>
+    </label>
+
+    <label>
+      <span class="asterisk">{{ 'visit.conclusion' | translate }}:</span>
+      <textarea formControlName="conclusion"></textarea>
+    </label>
+
+    <label>
+      <span>{{ 'visit.place' | translate }}:</span>
+      <input type="text" formControlName="address" />
+    </label>
+
+    <label style="display: block; cursor: pointer">
+      <span>{{ 'visit.uploadConclusions' | translate }}:</span>
+      <input style="cursor: pointer" type="file" (change)="handleFiles($event)" multiple accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" />
+    </label>
+
+    <div class="reports">
+      @for (report of form.get('reports').value; track index; let index = $index) {
+        <div class="report">
+          <span class="report-name">{{ report.name }}</span>
+          <button (click)="deleteReport(index)">x</button>
+        </div>
+      }
+    </div>
+
+    <button type="submit" [disabled]="form.invalid">{{ 'visit.addVisit' | translate }}</button>
+  </form>
+</div>

@@ -1,0 +1,31 @@
+form, label, .reports {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+form {
+  max-width: 400px;
+  width: 100%;
+  gap: 10px;
+}
+
+h2 {
+  margin: 50px 0 20px;
+}
+
+.asterisk::after {
+  content: '*';
+  color: crimson;
+}
+
+.reports {
+  margin: 0 0 10px;
+}
+
+.report {
+  display: flex;
+}
+
+.report-name {
+  flex: 1;
+}

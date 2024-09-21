@@ -1,0 +1,43 @@
+h2 {
+  margin: 50px 0 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+th {
+  padding: 8px 0 8px 8px;
+  text-align: left;
+  border-bottom: 1px solid black;;
+}
+
+td {
+  padding: 8px 0 5px 8px;
+
+  &:first-child {
+    padding-left: 8px;
+  }
+
+  &:last-child {
+    padding-right: 8px;
+  }
+
+  &:nth-child(1) {
+    width: 20%;
+  }
+
+  &:nth-child(2) {
+    width: 40%;
+  }
+
+  &:nth-child(3) {
+    width: 20%;
+  }
+
+  &:nth-child(4) {
+    width: 20%;
+  }
+}

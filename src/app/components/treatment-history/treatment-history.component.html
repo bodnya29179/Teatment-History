@@ -1,0 +1,40 @@
+<h2>{{ 'visitsHistory' | translate }}</h2>
+
+@if (visits$ | async; as visits) {
+  @if (visits.length) {
+    <table>
+      <thead>
+        <tr>
+          <th>{{ 'visit.date' | translate }}</th>
+          <th>{{ 'visit.doctor' | translate }}</th>
+          <th>{{ 'visit.place' | translate }}</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (visit of visits; track visit.id) {
+          <tr>
+            <td>{{ visit.date | date : 'longDate' : '' : currentLanguage }}</td>
+
+            <td>
+              {{ ('doctorTypes.' + visit.doctorType) | translate }}
+
+              @if (visit.doctorName) {
+                - {{ visit.doctorName }}
+              }
+            </td>
+
+            <td>{{ visit.address }}</td>
+
+            <td>
+              <button (click)="showDetails(visit.id)">{{ 'visit.seeDetails' | translate }}</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    {{ 'emptyHistory' | translate }}
+  }
+}

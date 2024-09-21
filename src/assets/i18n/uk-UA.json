@@ -1,0 +1,30 @@
+{
+  "visit": {
+    "date": "Дата візиту",
+    "place": "Місце",
+    "doctorName": "Ім'я лікаря",
+    "doctorType": "Тип лікаря",
+    "description": "Опис проблеми",
+    "conclusion": "Висновок лікаря",
+    "seeDetails": "Переглянути деталі",
+    "uploadConclusions": "Завантажити висновоки лікаря",
+    "addVisit": "Додати візит",
+    "doctor": "Лікар"
+  },
+  "addNewVisit": "Додати новий візит",
+  "visitsHistory": "Історія візитів",
+  "emptyHistory": "Візити ще не додані.",
+  "doctorTypes": {
+    "dentist": "Стоматолог",
+    "urologist": "Уролог",
+    "otolaryngologist": "Отоларинтолог (ЛОР)",
+    "surgeon": "Хірург",
+    "ophthalmologist": "Окуліст",
+    "neurologist": "Невролог",
+    "gastroenterologist": "Гастроентеролог",
+    "endocrinologist": "Ендокринолог",
+    "dermatologist": "Дерматолог",
+    "proctologist": "Проктолог",
+    "family-doctor": "Сімейний лікар"
+  }
+}

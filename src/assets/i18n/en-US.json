@@ -1,0 +1,30 @@
+{
+  "visit": {
+    "date": "Date of visit",
+    "place": "Place",
+    "doctorName": "Doctor's name",
+    "doctorType": "Doctor's type",
+    "description": "Problem description",
+    "conclusion": "Doctor's conclusion",
+    "seeDetails": "See details",
+    "uploadConclusions": "Upload doctor's conclusions",
+    "addVisit": "Add visit",
+    "doctor": "Doctor"
+  },
+  "addNewVisit": "Add new visit",
+  "visitsHistory": "Visits history",
+  "emptyHistory": "No visits added yet.",
+  "doctorTypes": {
+    "dentist": "Dentist",
+    "urologist": "Urologist",
+    "otolaryngologist": "Otolaryngologist",
+    "surgeon": "Surgeon",
+    "ophthalmologist": "Ophthalmologist",
+    "neurologist": "Neurologist",
+    "gastroenterologist": "Gastroenterologist",
+    "endocrinologist": "Endocrinologist",
+    "dermatologist": "Dermatologist",
+    "proctologist": "Proctologist",
+    "family-doctor": "Family doctor"
+  }
+}

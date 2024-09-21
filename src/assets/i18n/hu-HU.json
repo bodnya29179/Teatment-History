@@ -1,0 +1,30 @@
+{
+  "visit": {
+    "date": "Látogatás dátuma",
+    "place": "Helyszín",
+    "doctorName": "Orvos neve",
+    "doctorType": "Orvos típusa",
+    "description": "Probléma leírása",
+    "conclusion": "Orvosi következtetés",
+    "seeDetails": "Részletek megtekintése",
+    "uploadConclusions": "Orvosi következtetések feltöltése",
+    "addVisit": "Látogatás hozzáadása",
+    "doctor": "Orvos"
+  },
+  "addNewVisit": "Új látogatás hozzáadása",
+  "visitsHistory": "Látogatások története",
+  "emptyHistory": "Nincs hozzáadott látogatás.",
+  "doctorTypes": {
+    "dentist": "Fogorvos",
+    "urologist": "Urológus",
+    "otolaryngologist": "Fül-orr-gégész",
+    "surgeon": "Sebész",
+    "ophthalmologist": "Szemész",
+    "neurologist": "Neurológus",
+    "gastroenterologist": "Gasztroenterológus",
+    "endocrinologist": "Endokrinológus",
+    "dermatologist": "Bőrgyógyász",
+    "proctologist": "Proktológus",
+    "family-doctor": "Háziorvos"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "visits": [
+    {
+      "id": "6c04d930-258b-41c2-9cea-861ff4152cae",
+      "doctorName": "Hz",
+      "doctorType": "otolaryngologist",
+      "date": "2024-09-18",
+      "description": "prolem #1",
+      "conclusion": "conclusion 123",
+      "address": "Budapest",
+      "reports": [
+        "Docxdocument_1726937238154.pdf",
+        "dummy_(7)_1726937238154.pdf"
+      ]
+    },
+    {
+      "id": "7da37d34-e67d-4a19-8d2e-8fa99238efb8",
+      "doctorName": "12",
+      "doctorType": "ophthalmologist",
+      "date": "2024-09-20",
+      "description": "34",
+      "conclusion": "56",
+      "address": "",
+      "reports": []
+    },
+    {
+      "id": "a0f8acdc-58ff-4318-8586-ee2b0f666ad1",
+      "doctorName": "1",
+      "doctorType": "urologist",
+      "date": "2024-09-13",
+      "description": "2",
+      "conclusion": "3",
+      "address": "",
+      "reports": [
+        "example-multipage_(8).pdf_1726941863772.pdf"
+      ]
+    },
+    {
+      "id": "1e831255-0ba5-4d43-acbf-76a4beca71ef",
+      "doctorName": "4",
+      "doctorType": "family-doctor",
+      "date": "2024-09-20",
+      "description": "5",
+      "conclusion": "4",
+      "address": "",
+      "reports": []
+    }
+  ]
+}
