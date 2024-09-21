@@ -9,11 +9,13 @@
     "seeDetails": "Részletek megtekintése",
     "uploadConclusions": "Orvosi következtetések feltöltése",
     "addVisit": "Látogatás hozzáadása",
-    "doctor": "Orvos"
+    "doctor": "Orvos",
+    "search": "Keresés"
   },
   "addNewVisit": "Új látogatás hozzáadása",
   "visitsHistory": "Látogatások története",
   "emptyHistory": "Nincs hozzáadott látogatás.",
+  "noMatches": "Nincs találat.",
   "doctorTypes": {
     "dentist": "Fogorvos",
     "urologist": "Urológus",

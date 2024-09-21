@@ -1,13 +1,33 @@
 <h2>{{ 'visitsHistory' | translate }}</h2>
 
+<input style="padding: 10px" type="text" [formControl]="searchControl" [placeholder]="'visit.search' | translate">
+
 @if (visits$ | async; as visits) {
   @if (visits.length) {
     <table>
       <thead>
         <tr>
-          <th>{{ 'visit.date' | translate }}</th>
-          <th>{{ 'visit.doctor' | translate }}</th>
-          <th>{{ 'visit.place' | translate }}</th>
+          <th style="cursor:pointer;" (click)="changeSortOption('by-date')">
+            @if (sortOptionControl.value === 'by-date') {
+              {{ sortDirectionControl.value === 'asc' ? '⬆' : '⬇' }}
+            }
+            {{ 'visit.date' | translate }}
+          </th>
+
+          <th style="cursor:pointer;" (click)="changeSortOption('by-doctor')">
+            @if (sortOptionControl.value === 'by-doctor') {
+              {{ sortDirectionControl.value === 'asc' ? '⬆' : '⬇' }}
+            }
+            {{ 'visit.doctor' | translate }}
+          </th>
+
+          <th style="cursor:pointer;" (click)="changeSortOption('by-address')">
+            @if (sortOptionControl.value === 'by-address') {
+              {{ sortDirectionControl.value === 'asc' ? '⬆' : '⬇' }}
+            }
+            {{ 'visit.place' | translate }}
+          </th>
+
           <th></th>
         </tr>
       </thead>
@@ -35,6 +55,10 @@
       </tbody>
     </table>
   } @else {
-    {{ 'emptyHistory' | translate }}
+    @if (searchControl.value) {
+      {{ 'noMatches' | translate }}
+    } @else {
+      {{ 'emptyHistory' | translate }}
+    }
   }
 }

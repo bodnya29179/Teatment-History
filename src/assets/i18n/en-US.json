@@ -9,11 +9,13 @@
     "seeDetails": "See details",
     "uploadConclusions": "Upload doctor's conclusions",
     "addVisit": "Add visit",
-    "doctor": "Doctor"
+    "doctor": "Doctor",
+    "search": "Search"
   },
   "addNewVisit": "Add new visit",
   "visitsHistory": "Visits history",
   "emptyHistory": "No visits added yet.",
+  "noMatches": "No matches found.",
   "doctorTypes": {
     "dentist": "Dentist",
     "urologist": "Urologist",

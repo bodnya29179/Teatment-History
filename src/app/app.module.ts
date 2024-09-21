@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, DatePipe, registerLocaleData } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import localeUk from '@angular/common/locales/uk';
 import localeHu from '@angular/common/locales/hu';
@@ -26,6 +26,7 @@ registerLocaleData(localeHu, 'hu-HU');
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    CommonModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -44,6 +45,7 @@ registerLocaleData(localeHu, 'hu-HU');
     VisitService,
     TranslationLoaderService,
     StorageService,
+    DatePipe,
     {
       provide: APP_INITIALIZER,
       useFactory: (translationLoader: TranslationLoaderService) => () => translationLoader.loadTranslation(),

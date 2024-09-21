@@ -9,11 +9,13 @@
     "seeDetails": "Переглянути деталі",
     "uploadConclusions": "Завантажити висновоки лікаря",
     "addVisit": "Додати візит",
-    "doctor": "Лікар"
+    "doctor": "Лікар",
+    "search": "Пошук"
   },
   "addNewVisit": "Додати новий візит",
   "visitsHistory": "Історія візитів",
   "emptyHistory": "Візити ще не додані.",
+  "noMatches": "Співпадінь не знайдено.",
   "doctorTypes": {
     "dentist": "Стоматолог",
     "urologist": "Уролог",
