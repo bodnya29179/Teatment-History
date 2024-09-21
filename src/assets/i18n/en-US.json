@@ -17,16 +17,32 @@
   "emptyHistory": "No visits added yet.",
   "noMatches": "No matches found.",
   "doctorTypes": {
-    "dentist": "Dentist",
-    "urologist": "Urologist",
-    "otolaryngologist": "Otolaryngologist",
-    "surgeon": "Surgeon",
-    "ophthalmologist": "Ophthalmologist",
-    "neurologist": "Neurologist",
-    "gastroenterologist": "Gastroenterologist",
-    "endocrinologist": "Endocrinologist",
-    "dermatologist": "Dermatologist",
-    "proctologist": "Proctologist",
-    "family-doctor": "Family doctor"
+    "doctorTypes": {
+      "dentist": "Dentist",
+      "urologist": "Urologist",
+      "otolaryngologist": "Otolaryngologist (ENT)",
+      "surgeon": "Surgeon",
+      "ophthalmologist": "Ophthalmologist",
+      "neurologist": "Neurologist",
+      "gastroenterologist": "Gastroenterologist",
+      "endocrinologist": "Endocrinologist",
+      "dermatologist": "Dermatologist",
+      "proctologist": "Proctologist",
+      "family-doctor": "Family Doctor",
+      "cardiologist": "Cardiologist",
+      "orthopedist": "Orthopedist",
+      "rheumatologist": "Rheumatologist",
+      "psychiatrist": "Psychiatrist",
+      "pediatrician": "Pediatrician",
+      "allergist": "Allergist",
+      "gynecologist": "Gynecologist",
+      "oncologist": "Oncologist",
+      "pulmonologist": "Pulmonologist",
+      "immunologist": "Immunologist",
+      "hematologist": "Hematologist",
+      "nephrologist": "Nephrologist",
+      "infectiologist": "Infectiologist",
+      "neurosurgeon": "Neurosurgeon"
+    }
   }
 }

@@ -18,15 +18,29 @@
   "noMatches": "Співпадінь не знайдено.",
   "doctorTypes": {
     "dentist": "Стоматолог",
-    "urologist": "Уролог",
-    "otolaryngologist": "Отоларинтолог (ЛОР)",
+    "otolaryngologist": "Отоларинголог (ЛОР)",
     "surgeon": "Хірург",
     "ophthalmologist": "Окуліст",
     "neurologist": "Невролог",
     "gastroenterologist": "Гастроентеролог",
     "endocrinologist": "Ендокринолог",
     "dermatologist": "Дерматолог",
+    "urologist": "Уролог",
     "proctologist": "Проктолог",
-    "family-doctor": "Сімейний лікар"
+    "family-doctor": "Сімейний лікар",
+    "cardiologist": "Кардіолог",
+    "orthopedist": "Ортопед",
+    "rheumatologist": "Ревматолог",
+    "psychiatrist": "Психіатр",
+    "pediatrician": "Педіатр",
+    "allergist": "Алерголог",
+    "gynecologist": "Гінеколог",
+    "oncologist": "Онколог",
+    "pulmonologist": "Пульмонолог",
+    "immunologist": "Імунолог",
+    "hematologist": "Гематолог",
+    "nephrologist": "Нефролог",
+    "infectiologist": "Інфекціоніст",
+    "neurosurgeon": "Нейрохірург"
   }
 }
