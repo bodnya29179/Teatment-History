@@ -1,10 +1,11 @@
 const jsonServer = require('json-server');
-const router = jsonServer.router('server/database/db.json');
 const { v4: uuidv4 } = require('uuid');
 const path = require('path');
-const { processFileName } = require('../helpers');
-const uploadsFolderPath = path.join(__dirname, '..', '/database/uploads');
 const fs = require('fs');
+const { processFileName } = require('../utils');
+
+const router = jsonServer.router('server/database/db.json');
+const uploadsFolderPath = path.join(__dirname, '..', '/database/uploads');
 
 function getDB() {
   return router.db.get('visits');
