@@ -61,47 +61,20 @@ export class TreatmentHistoryComponent implements OnInit {
   }
 
   private initializeValues(): void {
-    this.visits$ = combineLatest([
-      this.searchControl.valueChanges.pipe(startWith(this.searchControl.value)),
-      this.sortOptionControl.valueChanges.pipe(startWith(this.sortOptionControl.value)),
-      this.sortDirectionControl.valueChanges.pipe(startWith(this.sortDirectionControl.value)),
-      this.storageService.getVisits(),
-    ]).pipe(
-      map(([searchValue, sortOption, sortDirection, visits]) => {
-        return visits
-          .filter((visit: Visit) => {
-            const date = this.datePipe.transform(visit.date, 'longDate', '', this.currentLanguage);
-            const doctorType = this.doctorTypeTranslations[`doctorTypes.${ visit.doctorType }`];
-            const { doctorName, address } = visit;
+    const search$ = this.searchControl.valueChanges.pipe(startWith(this.searchControl.value));
+    const sortOption$ = this.sortOptionControl.valueChanges.pipe(startWith(this.sortOptionControl.value));
+    const sortDirection$ = this.sortDirectionControl.valueChanges.pipe(startWith(this.sortDirectionControl.value));
+    const visits$ = this.storageService.getVisits();
 
-            return `${ date } ${ doctorType } - ${ doctorName } ${ address }`.toLowerCase().includes(searchValue.toLowerCase());
-          })
-          .sort((visit1, visit2) => {
-            switch (sortOption) {
-              case SortOption.byDate:
-                return sortDirection === 'asc'
-                  ? (new Date(visit1.date) as any) - (new Date(visit2.date) as any)
-                  : (new Date(visit2.date) as any) - (new Date(visit1.date) as any)
+    this.visits$ = combineLatest([search$, sortOption$, sortDirection$, visits$,])
+      .pipe(
+        map(([searchValue, sortOption, sortDirection, visits]) => {
+          const searchResult = this.searchVisits(visits, searchValue);
+          const sortedResult = this.sortVisits(searchResult, sortOption, sortDirection);
 
-              case SortOption.byDoctor:
-                const doctorType1 = this.doctorTypeTranslations[`doctorTypes.${ visit1.doctorType }`];
-                const doctorType2 = this.doctorTypeTranslations[`doctorTypes.${ visit2.doctorType }`];
-
-                const doctor1 = `${ doctorType1 } ${ visit1.doctorName }`;
-                const doctor2 = `${ doctorType2 } ${ visit2.doctorName }`;
-
-                return sortDirection === 'asc'
-                  ? sortAlphabetically(doctor1, doctor2)
-                  : sortAlphabetically(doctor2, doctor1);
-
-              case SortOption.byAddress:
-                return sortDirection === 'asc'
-                  ? sortAlphabetically(visit1.address, visit2.address)
-                  : sortAlphabetically(visit2.address, visit1.address);
-            }
-          });
-      }),
-    );
+          return sortedResult;
+        }),
+      );
   }
 
   private initializeListeners(): void {
@@ -111,10 +84,55 @@ export class TreatmentHistoryComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe(() => {
-        const translationKeys = Object.values(DoctorType).map((type) => `doctorTypes.${ type }`);
+        const translationKeys = Object.values(DoctorType)
+          .map((type) => this.getDoctorTypeTranslationKey(type));
 
         this.doctorTypeTranslations = this.translate.instant(translationKeys);
       });
+  }
+
+  private getDoctorTypeTranslation(doctorType: DoctorType): string {
+    return this.doctorTypeTranslations[this.getDoctorTypeTranslationKey(doctorType)];
+  }
+
+  private getDoctorTypeTranslationKey(doctorType: DoctorType): string {
+    return `doctorTypes.${ doctorType }`;
+  }
+
+  private searchVisits(visits: Visit[], searchValue: string): Visit[] {
+    return visits
+      .filter((visit: Visit) => {
+        const date = this.datePipe.transform(visit.date, 'longDate', '', this.currentLanguage);
+        const doctorType = this.doctorTypeTranslations[`doctorTypes.${ visit.doctorType }`];
+        const { doctorName, address } = visit;
+
+        return `${ date } ${ doctorType } - ${ doctorName } ${ address }`.toLowerCase().includes(searchValue.toLowerCase());
+      });
+  }
+
+  private sortVisits(visits: Visit[], sortOption: SortOption, sortDirection: SortDirection): Visit[] {
+    return visits.sort((visit1: Visit, visit2: Visit) => {
+      switch (sortOption) {
+        case SortOption.byDate: {
+          return sortDirection === SortDirection.asc
+            ? (new Date(visit1.date) as any) - (new Date(visit2.date) as any)
+            : (new Date(visit2.date) as any) - (new Date(visit1.date) as any)
+        }
+        case SortOption.byDoctor: {
+          const doctor1 = `${ this.getDoctorTypeTranslation(visit1.doctorType) } ${ visit1.doctorName }`;
+          const doctor2 = `${ this.getDoctorTypeTranslation(visit2.doctorType) } ${ visit2.doctorName }`;
+
+          return sortDirection === SortDirection.asc
+            ? sortAlphabetically(doctor1, doctor2)
+            : sortAlphabetically(doctor2, doctor1);
+        }
+        case SortOption.byAddress: {
+          return sortDirection === SortDirection.asc
+            ? sortAlphabetically(visit1.address, visit2.address)
+            : sortAlphabetically(visit2.address, visit1.address);
+        }
+      }
+    });
   }
 }
 
