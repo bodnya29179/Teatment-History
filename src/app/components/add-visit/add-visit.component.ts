@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DoctorTypes } from '../../constants';
 import { StorageService } from '../../services';
 import { DoctorType } from '../../models';
 import { firstValueFrom } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-visit',
@@ -14,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class AddVisitComponent implements OnInit {
   form: FormGroup;
 
-  readonly doctorTypes = Object.values(DoctorTypes).map((doctorType) => {
+  readonly doctorTypes = Object.values(DoctorType).map((doctorType) => {
     return {
       value: doctorType,
       label: `doctorTypes.${doctorType}`,
@@ -23,10 +21,7 @@ export class AddVisitComponent implements OnInit {
 
   readonly maxDate = new Date().toISOString().split('T')[0];
 
-  constructor(
-    private readonly storageService: StorageService,
-    private readonly translate: TranslateService,
-  ) {}
+  constructor(private readonly storageService: StorageService) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({

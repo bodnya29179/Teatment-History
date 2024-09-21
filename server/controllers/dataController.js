@@ -59,7 +59,7 @@ class DataController {
   }
 
   getFilesStoragePath(req, res) {
-    res.status(200).json({ filesStoragePath: uploadsFolderPath });
+    res.status(200).json(uploadsFolderPath);
   }
 
   async uploadFiles(req, res) {
@@ -70,7 +70,7 @@ class DataController {
 
       files.forEach((file, index) => file.mv(filePaths[index]));
 
-      res.status(200).json({ fileNames });
+      res.status(200).json(fileNames);
     } catch (error) {
       res.status(500).json({ message: 'Files upload failed', error: error.message });
     }

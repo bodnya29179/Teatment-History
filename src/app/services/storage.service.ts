@@ -3,9 +3,7 @@ import { BehaviorSubject, Observable, of, switchMap, tap } from 'rxjs';
 import { Visit } from '../models';
 import { VisitService } from './visit.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class StorageService {
   private readonly visits$ = new BehaviorSubject<Visit[]>(undefined);
 

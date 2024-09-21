@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit } from '@angular/core';
 import { combineLatest, map, Observable, startWith } from 'rxjs';
-import { Visit } from '../../models';
-import { StorageService } from '../../services';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { FormControl } from '@angular/forms';
-import { DoctorTypes, SortDirections, SortOptions } from '../../constants';
 import { DatePipe } from '@angular/common';
+import { DoctorType, SortDirection, SortOption, Visit } from '../../models';
+import { StorageService } from '../../services';
 import { sortAlphabetically } from '../../utils';
 
 @Component({
@@ -17,13 +17,17 @@ import { sortAlphabetically } from '../../utils';
 export class TreatmentHistoryComponent implements OnInit {
   visits$: Observable<Visit[]>;
 
-  doctorTypeTranslations: Record<string, string>;
+  readonly SortOption = SortOption;
+
+  readonly SortDirection = SortDirection;
 
   readonly searchControl = new FormControl<string>('');
 
-  readonly sortOptionControl = new FormControl<typeof SortOptions[keyof typeof SortOptions]>(SortOptions.byDate);
+  readonly sortOptionControl = new FormControl<SortOption>(SortOption.byDate);
 
-  readonly sortDirectionControl = new FormControl<typeof SortDirections[keyof typeof SortDirections]>(SortDirections.desc);
+  readonly sortDirectionControl = new FormControl<SortDirection>(SortDirection.desc);
+
+  private doctorTypeTranslations: Record<string, string>;
 
   get currentLanguage(): string {
     return this.translate.defaultLang;
@@ -34,17 +38,29 @@ export class TreatmentHistoryComponent implements OnInit {
     private readonly router: Router,
     private readonly translate: TranslateService,
     private readonly datePipe: DatePipe,
+    private readonly destroyRef: DestroyRef,
   ) {}
 
   ngOnInit(): void {
-    this.translate.onLangChange
-      .pipe(startWith(this.translate.currentLang))
-      .subscribe(() => {
-        const translationKeys = Object.values(DoctorTypes).map((type) => `doctorTypes.${ type }`);
+    this.initializeValues();
+    this.initializeListeners();
+  }
 
-        this.doctorTypeTranslations = this.translate.instant(translationKeys);
-      });
+  showDetails(visitId: string): void {
+    this.router.navigate([visitId]);
+  }
 
+  changeSortOption(option: SortOption): void {
+    if (option === this.sortOptionControl.value) {
+      const direction = this.sortDirectionControl.value === SortDirection.asc ? SortDirection.desc : SortDirection.asc;
+      this.sortDirectionControl.setValue(direction);
+    } else {
+      this.sortOptionControl.setValue(option);
+      this.sortDirectionControl.setValue(SortDirection.asc);
+    }
+  }
+
+  private initializeValues(): void {
     this.visits$ = combineLatest([
       this.searchControl.valueChanges.pipe(startWith(this.searchControl.value)),
       this.sortOptionControl.valueChanges.pipe(startWith(this.sortOptionControl.value)),
@@ -62,12 +78,12 @@ export class TreatmentHistoryComponent implements OnInit {
           })
           .sort((visit1, visit2) => {
             switch (sortOption) {
-              case SortOptions.byDate:
+              case SortOption.byDate:
                 return sortDirection === 'asc'
                   ? (new Date(visit1.date) as any) - (new Date(visit2.date) as any)
                   : (new Date(visit2.date) as any) - (new Date(visit1.date) as any)
 
-              case SortOptions.byDoctor:
+              case SortOption.byDoctor:
                 const doctorType1 = this.doctorTypeTranslations[`doctorTypes.${ visit1.doctorType }`];
                 const doctorType2 = this.doctorTypeTranslations[`doctorTypes.${ visit2.doctorType }`];
 
@@ -78,7 +94,7 @@ export class TreatmentHistoryComponent implements OnInit {
                   ? sortAlphabetically(doctor1, doctor2)
                   : sortAlphabetically(doctor2, doctor1);
 
-              case SortOptions.byAddress:
+              case SortOption.byAddress:
                 return sortDirection === 'asc'
                   ? sortAlphabetically(visit1.address, visit2.address)
                   : sortAlphabetically(visit2.address, visit1.address);
@@ -88,17 +104,17 @@ export class TreatmentHistoryComponent implements OnInit {
     );
   }
 
-  showDetails(visitId: string): void {
-    this.router.navigate([]); // TODO
-  }
+  private initializeListeners(): void {
+    this.translate.onLangChange
+      .pipe(
+        startWith(this.translate.currentLang),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe(() => {
+        const translationKeys = Object.values(DoctorType).map((type) => `doctorTypes.${ type }`);
 
-  changeSortOption(option: typeof SortOptions[keyof typeof SortOptions]): void {
-    if (option === this.sortOptionControl.value) {
-      this.sortDirectionControl.setValue(this.sortDirectionControl.value === 'asc' ? 'desc' : 'asc');
-    } else {
-      this.sortOptionControl.setValue(option);
-      this.sortDirectionControl.setValue('asc');
-    }
+        this.doctorTypeTranslations = this.translate.instant(translationKeys);
+      });
   }
 }
 

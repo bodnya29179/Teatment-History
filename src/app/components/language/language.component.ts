@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { LocaleService } from '../../services';
+import { Language } from '../../models';
 
 @Component({
   selector: 'app-language',
@@ -16,13 +18,14 @@ export class LanguageComponent {
     { value: 'hu-HU', label: '🇭🇺 Mag' },
   ];
 
-  constructor(private readonly translate: TranslateService) {}
+  constructor(
+    private readonly translate: TranslateService,
+    private readonly localeService: LocaleService,
+  ) {}
 
   changeLanguage(event: Event): void {
-    const language = (event.target as HTMLSelectElement).value;
+    const language = (event.target as HTMLSelectElement).value as Language;
 
-    this.translate.use(language);
-    this.translate.setDefaultLang(language);
-    localStorage.setItem('locale', language);
+    this.localeService.setLanguage(language);
   }
 }

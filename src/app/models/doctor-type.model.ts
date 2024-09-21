@@ -1,3 +1,27 @@
-import { DoctorTypes } from '../constants';
-
-export type DoctorType = typeof DoctorTypes[keyof typeof DoctorTypes];
+export enum DoctorType {
+  dentist = 'dentist',
+  urologist = 'urologist',
+  otolaryngologist = 'otolaryngologist',
+  surgeon = 'surgeon',
+  ophthalmologist = 'ophthalmologist',
+  neurologist = 'neurologist',
+  gastroenterologist = 'gastroenterologist',
+  endocrinologist = 'endocrinologist',
+  dermatologist = 'dermatologist',
+  proctologist = 'proctologist',
+  familyDoctor = 'family-doctor',
+  cardiologist = 'cardiologist',
+  orthopedist = 'orthopedist',
+  rheumatologist = 'rheumatologist',
+  psychiatrist = 'psychiatrist',
+  pediatrician = 'pediatrician',
+  allergist = 'allergist',
+  gynecologist = 'gynecologist',
+  oncologist = 'oncologist',
+  pulmonologist = 'pulmonologist',
+  immunologist = 'immunologist',
+  hematologist = 'hematologist',
+  nephrologist = 'nephrologist',
+  infectiologist = 'infectiologist',
+  neurosurgeon = 'neurosurgeon',
+}

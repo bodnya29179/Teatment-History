@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Visit } from '../models';
 
 @Injectable()
@@ -30,16 +30,10 @@ export class VisitService {
 
     files.forEach((file) => formData.append('reports', file));
 
-    return this.http.post<{ fileNames: string[] }>(`${ this.apiUrl }/upload-files`, formData)
-      .pipe(map(({ fileNames }) => fileNames));
+    return this.http.post<string[]>(`${ this.apiUrl }/upload-files`, formData);
   }
 
   getFilesPath(): Observable<string> {
-    return this.http.get<{ filesStoragePath: string }>(`${ this.apiUrl }/files-storage-path`)
-      .pipe(map(({ filesStoragePath }) => filesStoragePath));
+    return this.http.get<string>(`${ this.apiUrl }/files-storage-path`)
   }
-  //
-  // deleteFile(fileName: string): Observable<void> {
-  //   return this.http.delete<void>(`${ this.apiUrl }/delete-file`, { body: { fileName } });
-  // };
 }
