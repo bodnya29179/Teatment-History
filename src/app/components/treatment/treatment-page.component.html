@@ -1,0 +1,49 @@
+@if (visit) {
+  <table>
+    <tr>
+      <th>Date</th>
+      <td>{{ visit.date | date : 'longDate' : '' : currentLanguage }}</td>
+    </tr>
+    <tr>
+      <th>Address</th>
+      <td>{{ visit.address }}</td>
+    </tr>
+    <tr>
+      <th>Doctor</th>
+      <td>
+        {{ ('doctorTypes.' + visit.doctorType) | translate }}
+
+        @if (visit.doctorName) {
+          - {{ visit.doctorName }}
+        }
+      </td>
+    </tr>
+    <tr>
+      <th>Title</th>
+      <td>{{ visit.title }}</td>
+    </tr>
+    <tr>
+      <th>Description</th>
+      <td>{{ visit.description }}</td>
+    </tr>
+    <tr>
+      <th>Reports</th>
+      <td>
+        @if (visit.reports.length) {
+          @for (report of visit.reports; track $index) {
+            <a class="report-reference" [href]="getReportPath(report)" target="_blank">{{ getReportName(report) }}</a>
+          }
+        } @else {
+          -
+        }
+      </td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>
+        <button>Edit</button>
+        <button (click)="deleteVisit()">Delete</button>
+      </td>
+    </tr>
+  </table>
+}

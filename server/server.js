@@ -2,6 +2,8 @@ const { dataController } = require('./controllers');
 const { ROUTES } = require('./constants');
 const fileUpload = require('express-fileupload');
 const jsonServer = require('json-server');
+const express = require('express');
+const path = require('path');
 
 const server = jsonServer.create();
 const router = jsonServer.router('server/database/db.json');
@@ -9,6 +11,8 @@ const middlewares = jsonServer.defaults();
 
 const PORT = 3000;
 const HOSTNAME = 'localhost';
+
+server.use(ROUTES.uploads, express.static(path.join(__dirname, 'database/uploads')));
 
 server.use(middlewares);
 server.use(fileUpload());
