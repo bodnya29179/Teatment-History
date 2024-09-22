@@ -6,8 +6,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { TranslationConfigModule } from './translation-config.module';
 import { AppComponent } from './app.component';
-import { AddVisitComponent, TreatmentHistoryComponent, LanguageComponent } from './components';
+import {
+  AddVisitComponent,
+  TreatmentHistoryComponent,
+  LanguageComponent,
+  TreatmentPageComponent,
+  HomePageComponent,
+} from './components';
 import { VisitService, StorageService, LocaleService } from './services';
+import { Route, RouterModule } from '@angular/router';
+
+const routes: Route[] = [
+  { path: '', component: HomePageComponent },
+  { path: ':id', component: TreatmentPageComponent },
+];
 
 @NgModule({
   imports: [
@@ -18,12 +30,15 @@ import { VisitService, StorageService, LocaleService } from './services';
     HttpClientModule,
     TranslationConfigModule,
     TranslateModule,
+    RouterModule.forRoot(routes),
   ],
   declarations: [
     AppComponent,
     AddVisitComponent,
     TreatmentHistoryComponent,
     LanguageComponent,
+    HomePageComponent,
+    TreatmentPageComponent,
   ],
   providers: [
     VisitService,

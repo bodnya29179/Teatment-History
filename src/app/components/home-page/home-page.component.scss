@@ -1,0 +1,8 @@
+:host {
+  display: flex;
+  gap: 60px;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
+}

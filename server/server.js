@@ -15,6 +15,7 @@ server.use(fileUpload());
 server.use(jsonServer.bodyParser);
 
 server.get(ROUTES.getVisits, dataController.getVisits);
+server.get(ROUTES.getVisitsById, dataController.getVisitById);
 server.post(ROUTES.addVisit, dataController.addVisit);
 server.put(ROUTES.updateVisit, dataController.updateVisit);
 server.delete(ROUTES.deleteVisit, dataController.deleteVisit);

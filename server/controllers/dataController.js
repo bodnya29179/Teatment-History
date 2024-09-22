@@ -18,6 +18,17 @@ class DataController {
     res.status(200).send(todos);
   }
 
+  getVisitById(req, res) {
+    const id = req.params.id;
+    const visit = getDB().find({ id }).value();
+
+    if (!visit) {
+      return res.status(404).json({ message: 'Visit not found' });
+    }
+
+    res.status(200).send(visit);
+  }
+
   addVisit(req, res) {
     const visit = {
       id: uuidv4(),

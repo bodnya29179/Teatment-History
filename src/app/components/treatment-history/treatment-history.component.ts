@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { DoctorType, SortDirection, SortOption, Visit } from '../../models';
-import { StorageService } from '../../services';
+import { LocaleService, StorageService } from '../../services';
 import { sortAlphabetically } from '../../utils';
 
 @Component({
@@ -30,7 +30,7 @@ export class TreatmentHistoryComponent implements OnInit {
   private doctorTypeTranslations: Record<string, string>;
 
   get currentLanguage(): string {
-    return this.translate.defaultLang;
+    return this.localeService.currentLanguage;
   }
 
   constructor(
@@ -38,6 +38,7 @@ export class TreatmentHistoryComponent implements OnInit {
     private readonly router: Router,
     private readonly translate: TranslateService,
     private readonly datePipe: DatePipe,
+    private readonly localeService: LocaleService,
     private readonly destroyRef: DestroyRef,
   ) {}
 

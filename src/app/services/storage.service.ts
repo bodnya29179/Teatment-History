@@ -20,15 +20,15 @@ export class StorageService {
   }
 
   getVisits(): Observable<Visit[]> {
-    if (this.visits$.value) {
-      return this.visits$;
-    }
-
     return this.visitService.getVisits()
       .pipe(
         tap((visits: Visit[]) => this.visits$.next(visits)),
         switchMap(() => this.visits$),
       );
+  }
+
+  getVisitById(visitId: string): Observable<Visit> {
+    return this.visitService.getVisitById(visitId);
   }
 
   addVisit({ reports, ...visit }: Omit<Visit, 'id' | 'reports'> & { reports: File[] }): Observable<Visit> {

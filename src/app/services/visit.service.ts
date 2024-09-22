@@ -13,6 +13,10 @@ export class VisitService {
     return this.http.get<Visit[]>(`${ this.apiUrl }/visits`);
   }
 
+  getVisitById(visitId: string): Observable<Visit> {
+    return this.http.get<Visit>(`${ this.apiUrl }/visits/${ visitId }`);
+  }
+
   addVisit(visit: Omit<Visit, 'id'>): Observable<Visit> {
     return this.http.post<Visit>(`${ this.apiUrl }/add-visit`, visit);
   }

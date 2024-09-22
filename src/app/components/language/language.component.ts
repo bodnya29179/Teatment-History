@@ -9,7 +9,7 @@ import { Language } from '../../models';
 })
 export class LanguageComponent {
   get currentLanguage(): string {
-    return this.translate.defaultLang;
+    return this.localeService.currentLanguage;
   }
 
   readonly languages = [
@@ -18,10 +18,7 @@ export class LanguageComponent {
     { value: 'hu-HU', label: '🇭🇺 Mag' },
   ];
 
-  constructor(
-    private readonly translate: TranslateService,
-    private readonly localeService: LocaleService,
-  ) {}
+  constructor(private readonly localeService: LocaleService) {}
 
   changeLanguage(event: Event): void {
     const language = (event.target as HTMLSelectElement).value as Language;
