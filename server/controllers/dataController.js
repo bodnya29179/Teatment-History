@@ -50,7 +50,7 @@ class DataController {
 
     visit.reports.forEach((fileName) => {
       const fullFilePath = path.join(uploadsFolderPath, fileName);
-      fs.unlink(fullFilePath);
+      fs.unlinkSync(fullFilePath);
     });
 
     getDB().remove({ id }).write();

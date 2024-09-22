@@ -7,6 +7,8 @@
     "description": "Опис проблеми",
     "conclusion": "Висновок лікаря",
     "seeDetails": "Переглянути деталі",
+    "delete": "Видалити",
+    "deleteConfirmation": "Ви впевнені що хочете видалити запис?",
     "uploadConclusions": "Завантажити висновоки лікаря",
     "addVisit": "Додати візит",
     "doctor": "Лікар",

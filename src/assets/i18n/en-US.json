@@ -7,6 +7,8 @@
     "description": "Problem description",
     "conclusion": "Doctor's conclusion",
     "seeDetails": "See details",
+    "delete": "Delete",
+    "deleteConfirmation": "Are you sure you want to delete the entry?",
     "uploadConclusions": "Upload doctor's conclusions",
     "addVisit": "Add visit",
     "doctor": "Doctor",

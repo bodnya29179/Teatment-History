@@ -1,5 +1,5 @@
 import { Component, DestroyRef, OnInit } from '@angular/core';
-import { combineLatest, map, Observable, startWith } from 'rxjs';
+import { combineLatest, firstValueFrom, map, Observable, startWith } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -48,6 +48,14 @@ export class TreatmentHistoryComponent implements OnInit {
 
   showDetails(visitId: string): void {
     this.router.navigate([visitId]);
+  }
+
+  deleteVisit(visitId: string): void {
+    const isConfirmed = confirm(this.translate.instant('visit.deleteConfirmation'));
+
+    if (isConfirmed) {
+      firstValueFrom(this.storageService.deleteVisit(visitId));
+    }
   }
 
   changeSortOption(option: SortOption): void {

@@ -41,8 +41,9 @@
 
             <td>{{ visit.address }}</td>
 
-            <td>
+            <td class="actions">
               <button (click)="showDetails(visit.id)">{{ 'visit.seeDetails' | translate }}</button>
+              <button (click)="deleteVisit(visit.id)">{{ 'visit.delete' | translate }}</button>
             </td>
           </tr>
         }

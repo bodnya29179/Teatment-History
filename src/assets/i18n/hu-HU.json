@@ -7,6 +7,8 @@
     "description": "Probléma leírása",
     "conclusion": "Orvosi következtetés",
     "seeDetails": "Részletek megtekintése",
+    "delete": "Törlés",
+    "deleteConfirmation": "Biztosan törölni szeretnéd a bejegyzést?",
     "uploadConclusions": "Orvosi következtetések feltöltése",
     "addVisit": "Látogatás hozzáadása",
     "doctor": "Orvos",
