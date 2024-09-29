@@ -1,3 +1,24 @@
 {
-  "visits": []
+  "visits": [
+    {
+      "id": "2fc099fc-d5d9-44bd-9f46-75ee2d7f09b9",
+      "doctorName": "1",
+      "doctorType": "urologist",
+      "date": "2024-09-12",
+      "description": "2",
+      "conclusion": "3",
+      "address": "4",
+      "reports": []
+    },
+    {
+      "id": "072f514d-2f49-4cc3-a0ed-ee289d7775c3",
+      "doctorName": "2",
+      "doctorType": "otolaryngologist",
+      "date": "2024-09-26",
+      "description": "ува",
+      "conclusion": "цуа",
+      "address": "цуацуа",
+      "reports": []
+    }
+  ]
 }

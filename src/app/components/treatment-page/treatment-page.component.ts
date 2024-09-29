@@ -1,10 +1,10 @@
 import { Component, DestroyRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LocaleService, StorageService } from '../../services';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Visit } from '../../models';
-import { firstValueFrom } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { firstValueFrom } from 'rxjs';
+import { LocaleService, StorageService } from '../../services';
+import { Visit } from '../../models';
 
 @Component({
   selector: 'app-treatment-page',
@@ -14,8 +14,6 @@ import { TranslateService } from '@ngx-translate/core';
 export class TreatmentPageComponent  implements OnInit {
   visit: Visit;
 
-  private filesStoragePath: string;
-
   get currentLanguage(): string {
     return this.localeService.currentLanguage;
   }
@@ -24,19 +22,13 @@ export class TreatmentPageComponent  implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly storageService: StorageService,
-    private readonly destroyRef: DestroyRef,
     private readonly localeService: LocaleService,
     private readonly translate: TranslateService,
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const visitId = this.route.snapshot.params['id'];
-
-    this.storageService.getVisitById(visitId)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((visit: Visit) => {
-        this.visit = visit;
-      });
+    this.visit = await firstValueFrom(this.storageService.getVisitById(visitId));
   }
 
   getReportName(report: string): string {

@@ -1,4 +1,7 @@
 {
+  "pages": {
+    "home": "Home"
+  },
   "visit": {
     "date": "Date of visit",
     "place": "Place",

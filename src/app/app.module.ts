@@ -12,6 +12,7 @@ import {
   LanguageComponent,
   TreatmentPageComponent,
   HomePageComponent,
+  BreadcrumbComponent,
 } from './components';
 import { VisitService, StorageService, LocaleService } from './services';
 import { Route, RouterModule } from '@angular/router';
@@ -39,6 +40,7 @@ const routes: Route[] = [
     LanguageComponent,
     HomePageComponent,
     TreatmentPageComponent,
+    BreadcrumbComponent,
   ],
   providers: [
     VisitService,

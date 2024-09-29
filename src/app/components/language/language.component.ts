@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { LocaleService } from '../../services';
 import { Language } from '../../models';
 
 @Component({
   selector: 'app-language',
   templateUrl: './language.component.html',
+  styleUrl: './language.component.scss',
 })
 export class LanguageComponent {
   get currentLanguage(): string {

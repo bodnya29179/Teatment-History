@@ -1,0 +1,5 @@
+@if (visit) {
+  <a [routerLink]="'/'">{{ 'pages.home' | translate }}</a>
+  >
+  <span>{{ ('doctorTypes.' + visit.doctorType) | translate }} - {{ visit.date | date : 'mediumDate' : '' : currentLanguage }}</span>
+}

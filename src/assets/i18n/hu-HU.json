@@ -1,4 +1,7 @@
 {
+  "pages": {
+    "home": "Kezdőlap"
+  },
   "visit": {
     "date": "Látogatás dátuma",
     "place": "Helyszín",
