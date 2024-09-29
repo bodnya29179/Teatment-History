@@ -1,6 +1,10 @@
 {
   "pages": {
-    "home": "Home"
+    "home": "Home",
+    "treatment": {
+      "edit": "Edit",
+      "delete": "Delete"
+    }
   },
   "visit": {
     "date": "Date of visit",

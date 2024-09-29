@@ -1,6 +1,10 @@
 {
   "pages": {
-    "home": "Kezdőlap"
+    "home": "Kezdőlap",
+    "treatment": {
+      "edit": "Szerkesztés",
+      "delete": "Törlés"
+    }
   },
   "visit": {
     "date": "Látogatás dátuma",
