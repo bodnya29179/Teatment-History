@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { LocaleService, StorageService } from '../../services';
 import { Visit } from '../../models';
 
@@ -11,7 +11,9 @@ import { Visit } from '../../models';
   styleUrl: './treatment-page.component.scss',
 })
 export class TreatmentPageComponent  implements OnInit {
-  visit: Visit;
+  visit$: Observable<Visit>;
+
+  isEditing = false;
 
   get currentLanguage(): string {
     return this.localeService.currentLanguage;
@@ -27,7 +29,7 @@ export class TreatmentPageComponent  implements OnInit {
 
   async ngOnInit(): Promise<void> {
     const visitId = this.route.snapshot.params['id'];
-    this.visit = await firstValueFrom(this.storageService.getVisitById(visitId));
+    this.visit$ = this.storageService.getVisitById(visitId);
   }
 
   getReportName(report: string): string {
@@ -43,11 +45,15 @@ export class TreatmentPageComponent  implements OnInit {
     return `http://localhost:3000/uploads/${ fileName }`;
   }
 
+  toggleEditing(): void {
+    this.isEditing = !this.isEditing;
+  }
+
   deleteVisit(): void {
     const isConfirmed = confirm(this.translate.instant('visit.deleteConfirmation'));
 
     if (isConfirmed) {
-      firstValueFrom(this.storageService.deleteVisit(this.visit.id));
+      firstValueFrom(this.storageService.deleteVisit(this.route.snapshot.params['id']));
       this.router.navigate(['/']);
     }
   }

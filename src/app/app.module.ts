@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TranslationConfigModule } from './translation-config.module';
 import { AppComponent } from './app.component';
 import {
-  AddVisitComponent,
+  VisitFormComponent,
   TreatmentHistoryComponent,
   LanguageComponent,
   TreatmentPageComponent,
@@ -35,7 +35,7 @@ const routes: Route[] = [
   ],
   declarations: [
     AppComponent,
-    AddVisitComponent,
+    VisitFormComponent,
     TreatmentHistoryComponent,
     LanguageComponent,
     HomePageComponent,

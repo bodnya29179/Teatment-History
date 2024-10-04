@@ -18,6 +18,8 @@
     "deleteConfirmation": "Ви впевнені що хочете видалити запис?",
     "uploadConclusions": "Завантажити висновоки лікаря",
     "addVisit": "Додати візит",
+    "saveChanges": "Зберегти зміни",
+    "cancelChanges": "Відмінити зміни",
     "doctor": "Лікар",
     "search": "Пошук"
   },

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, map, Observable, of, switchMap, tap } from 'rxjs';
 import { Visit } from '../models';
 import { VisitService } from './visit.service';
 
 @Injectable()
 export class StorageService {
-  private readonly visits$ = new BehaviorSubject<Visit[]>(undefined);
+  private readonly visits$ = new BehaviorSubject<Visit[]>([]);
 
   private readonly filesStoragePath$ = new BehaviorSubject<string>(undefined);
 
@@ -28,34 +28,74 @@ export class StorageService {
   }
 
   getVisitById(visitId: string): Observable<Visit> {
-    return this.visitService.getVisitById(visitId);
-  }
+    const visit = this.visits$.value.find((visit: Visit) => visit.id === visitId);
+    const visit$ = this.visits$.pipe(map(visits => visits.find((visit: Visit) => visit.id === visitId)));
 
-  addVisit({ reports, ...visit }: Omit<Visit, 'id' | 'reports'> & { reports: File[] }): Observable<Visit> {
-    const reports$ = reports.length ? this.visitService.uploadFiles(reports) : of([]);
+    if (visit) {
+      return visit$;
+    }
 
-    return reports$
+    return this.visitService.getVisitById(visitId)
       .pipe(
-        switchMap((filePaths: string[]) => {
-          return this.visitService.addVisit({ ...visit, reports: filePaths });
-        }),
         tap((visit: Visit) => {
-          this.visits$.next([visit, ...this.visits$.value]);
-        })
+          this.visits$.next([...this.visits$.value, visit]);
+        }),
+        switchMap(() => visit$),
       );
   }
 
-  updateVisit(visit: Visit): Observable<Visit> {
-    return this.visitService.updateVisit(visit)
-      .pipe(
-        tap((updatedVisit: Visit) => {
-          const visits = this.visits$.value.map((visit) => {
-            return visit.id === updatedVisit.id ? updatedVisit : visit;
-          });
+  async addVisit({ reports, ...visit }: Omit<Visit, 'id' | 'reports'> & { reports: File[] }): Promise<void> {
+    const filePaths = reports.length
+      ? await firstValueFrom(this.visitService.uploadFiles(reports))
+      : [];
 
-          this.visits$.next(visits);
-        })
-      );
+    const addedVisit = await firstValueFrom(this.visitService.addVisit({ ...visit, reports: filePaths }));
+
+    this.visits$.next([addedVisit, ...this.visits$.value]);
+  }
+
+  async updateVisit(visitId: string, changes: Omit<Visit, 'id' | 'reports'> & { reports: File[] }): Promise<void> {
+    const newValue = { ...changes };
+    const previousValue = this.visits$.value.find((visit: Visit) => visit.id === visitId);
+
+    const reportsToDelete = previousValue.reports.filter((fileName: string) => {
+      return !newValue.reports.find((file: File) => file.name === fileName);
+    });
+
+    const reportsToAdd = newValue.reports.filter((file: File) => {
+      return !previousValue.reports.find((fileName: string) => file.name === fileName);
+    });
+
+    const reportsToLeave = newValue.reports
+      .filter((file: File) => !!previousValue.reports.find((fileName) => file.name === fileName))
+      .map((file: File) => file.name);
+
+    const visitReports = [...reportsToLeave];
+
+    if (reportsToAdd.length) {
+      const addedReports = await firstValueFrom(this.visitService.uploadFiles(reportsToAdd));
+      visitReports.push(...addedReports);
+    }
+
+    if (reportsToDelete.length) {
+      await firstValueFrom(this.visitService.deleteFiles(reportsToDelete));
+    }
+
+    const updatedVisit = await firstValueFrom(this.visitService.updateVisit({
+      id: visitId,
+      ...changes,
+      reports: visitReports,
+    }));
+    console.log('updatedVisit', updatedVisit);
+
+    console.log('before', this.visits$.value);
+
+    const visits = this.visits$.value.map((visit) => {
+      return visit.id === updatedVisit.id ? updatedVisit : visit;
+    });
+    console.log('after', visits);
+
+    this.visits$.next(visits);
   }
 
   deleteVisit(visitId: string): Observable<void> {

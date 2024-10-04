@@ -87,6 +87,15 @@ class DataController {
     }
   }
 
+  deleteFiles(req, res) {
+    req.body.forEach((fileName) => {
+      const filePath = path.join(uploadsFolderPath, fileName);
+      fs.unlinkSync(filePath);
+    });
+
+    res.status(200).send();
+  }
+
   deleteFile(req, res) {
     const fileName = req.body.fileName;
 

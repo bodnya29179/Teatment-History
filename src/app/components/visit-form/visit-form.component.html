@@ -1,7 +1,9 @@
 <div class="container">
-  <h2 class="header">{{ 'addNewVisit' | translate }}</h2>
+  @if (!isEditing) {
+    <h2 class="header">{{ 'addNewVisit' | translate }}</h2>
+  }
 
-  <form [formGroup]="form" (ngSubmit)="addVisit()">
+  <form [formGroup]="form" (ngSubmit)="save()">
     <label>
       <span>{{ 'visit.doctorName' | translate }}:</span>
       <input type="text" formControlName="doctorName" />
@@ -46,11 +48,17 @@
       @for (report of form.get('reports').value; track index; let index = $index) {
         <div class="report">
           <span class="report-name">{{ report.name }}</span>
-          <button (click)="deleteReport(index)">x</button>
+          <button type="button" (click)="deleteReport(index)">x</button>
         </div>
       }
     </div>
 
-    <button type="submit" [disabled]="form.invalid">{{ 'visit.addVisit' | translate }}</button>
+    <button type="submit" [disabled]="form.invalid">
+      {{ (isEditing ? 'visit.saveChanges' : 'visit.addVisit') | translate }}
+    </button>
+
+    @if (isEditing) {
+      <button type="button" (click)="cancel()">{{ 'visit.cancelChanges' | translate }}</button>
+    }
   </form>
 </div>
