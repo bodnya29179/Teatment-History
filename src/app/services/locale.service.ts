@@ -19,6 +19,7 @@ export class LocaleService {
   setLanguage(language: Language): void {
     this.translate.setDefaultLang(language);
     this.translate.use(language);
+    document.documentElement.setAttribute('lang', language.split('-')[0]);
     localStorage.setItem(LOCALE_FIELD, language);
   }
 }

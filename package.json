@@ -5,7 +5,7 @@
   "scripts": {
     "start-web": "npm-run-all --parallel client-run server",
     "start-desktop": "npm-run-all --sequential client-build electron-run",
-    "build-dektop": "npm-run-all --sequential client-build",
+    "build-desktop": "npm-run-all --sequential client-build electron-pack",
     "client-run": "ng serve --open",
     "client-build": "ng build --base-href ./",
     "server": "nodemon server/server.js",
@@ -15,7 +15,9 @@
   "build": {
     "appId": "com.electron.treatmenthistory",
     "productName": "Treatment History",
-    "icon": "assets/icons/heart-pulse",
+    "directories":{
+      "output": "build"
+    },
     "files": [
       "dist/",
       "server/",
@@ -25,13 +27,13 @@
     ],
     "win": {
       "target": "nsis",
-      "icon": "assets/icons/heart-pulse.ico"
+      "icon": "src/assets/icons/favicon.ico"
     },
     "mac": {
-      "icon": "assets/icons/heart-pulse.icns"
+      "icon": "src/assets/icons/favicon.icns"
     },
     "linux": {
-      "icon": "assets/icons/heart-pulse.png"
+      "icon": "src/assets/icons/favicon.png"
     }
   },
   "private": true,

@@ -24,11 +24,6 @@ export class TranslationLoaderService {
 
     const locale = this.localeService.localeLanguage;
 
-    if (locale) {
-      this.translate.setDefaultLang(locale);
-      this.translate.use(locale);
-    } else {
-      this.localeService.setLanguage(Language.ua);
-    }
+    this.localeService.setLanguage(locale || Language.ua);
   }
 }
