@@ -4,12 +4,13 @@
   "main": "main.js",
   "scripts": {
     "start-web": "npm-run-all --parallel client-run server",
-    "start-desktop": "npm-run-all --sequential client-build electron",
-    "build-desktop": "npx electron-packager . Treatment-History --platform=darwin,win32,linux --arch=x64 --out=dist --overwrite",
+    "start-desktop": "npm-run-all --sequential client-build electron-run",
+    "build-dektop": "npm-run-all --sequential client-build",
     "client-run": "ng serve --open",
-    "client-build": "ng build",
+    "client-build": "ng build --base-href ./",
     "server": "nodemon server/server.js",
-    "electron": "electron ."
+    "electron-run": "electron .",
+    "electron-build": "npx electron-packager . Treatment-History --platform=darwin --arch=x64 --out=dist --overwrite"
   },
   "private": true,
   "dependencies": {

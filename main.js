@@ -5,6 +5,10 @@ const url = require('url');
 
 let serverProcess = null;
 
+function isDev() {
+  return !app.isPackaged;
+}
+
 function createWindow() {
   const win = new BrowserWindow({
     width: 940,
@@ -30,16 +34,21 @@ function createWindow() {
 app.disableHardwareAcceleration();
 
 app.on('ready', () => {
-  serverProcess = spawn('node', [path.join(__dirname, 'server/server.js')]);
+  if (isDev()) {
+    serverProcess = spawn('node', [path.join(__dirname, 'server/server.js')], {
+      stdio: 'inherit',
+      shell: true,
+    });
 
-  // Optional: Log server output to the console
-  serverProcess.stdout.on('data', (data) => {
-    console.log(`Server output: ${data}`);
-  });
+    // Optional: Log server output to the console
+    serverProcess.stdout.on('data', (data) => {
+      console.log(`Server output: ${data}`);
+    });
 
-  serverProcess.stderr.on('data', (data) => {
-    console.error(`Server error: ${data}`);
-  });
+    serverProcess.stderr.on('data', (data) => {
+      console.error(`Server error: ${data}`);
+    });
+  }
 
   createWindow();
 });
