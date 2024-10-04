@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, firstValueFrom, map, Observable, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, map, Observable, switchMap, tap } from 'rxjs';
 import { Visit } from '../models';
 import { VisitService } from './visit.service';
 
@@ -7,17 +7,7 @@ import { VisitService } from './visit.service';
 export class StorageService {
   private readonly visits$ = new BehaviorSubject<Visit[]>([]);
 
-  private readonly filesStoragePath$ = new BehaviorSubject<string>(undefined);
-
   constructor(private readonly visitService: VisitService) {}
-
-  getFilesStoragePath(): Observable<string> {
-    if (this.filesStoragePath$.value) {
-      return this.filesStoragePath$;
-    }
-
-    return this.visitService.getFilesPath();
-  }
 
   getVisits(): Observable<Visit[]> {
     return this.visitService.getVisits()
@@ -86,14 +76,10 @@ export class StorageService {
       ...changes,
       reports: visitReports,
     }));
-    console.log('updatedVisit', updatedVisit);
-
-    console.log('before', this.visits$.value);
 
     const visits = this.visits$.value.map((visit) => {
       return visit.id === updatedVisit.id ? updatedVisit : visit;
     });
-    console.log('after', visits);
 
     this.visits$.next(visits);
   }
