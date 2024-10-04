@@ -19,6 +19,8 @@ const CLIENT_BUILD_ROOT_PATH = 'dist/treatment-history/browser';
 
 const IS_DEV = !app.isPackaged;
 
+process.env.NODE_ENV = IS_DEV ? 'development' : 'production';
+
 let serverProcess = null;
 
 app.disableHardwareAcceleration();
@@ -66,10 +68,14 @@ function createWindow() {
 }
 
 function runServer() {
+  const serverPath = IS_DEV
+    ? path.join(__dirname, 'server', 'server.js')
+    : path.join(process.resourcesPath, 'app.asar.unpacked', 'server', 'server.js');
+
   serverProcess = spawn(
     'node',
-    [path.join(__dirname, 'server/server.js')],
-    { stdio: 'inherit', shell: true },
+    [serverPath],
+    { stdio: 'inherit', shell: true }
   );
 }
 

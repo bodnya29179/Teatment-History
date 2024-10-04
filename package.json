@@ -14,10 +14,13 @@
   },
   "build": {
     "appId": "com.electron.treatmenthistory",
-    "productName": "Treatment History",
+    "productName": "Treatment_History",
     "directories":{
       "output": "build"
     },
+    "asarUnpack": [
+      "server/**"
+    ],
     "files": [
       "dist/",
       "server/",

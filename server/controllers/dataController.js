@@ -4,8 +4,10 @@ const path = require('path');
 const fs = require('fs');
 const { processFileName } = require('../utils');
 
-const router = jsonServer.router('server/database/db.json');
-const uploadsFolderPath = path.join(__dirname, '..', '/database/uploads');
+const DB_PATH = path.join(__dirname, '..', '/database/db.json');
+const UPLOADS_FOLDER_PATH = path.join(__dirname, '..', '/database/uploads');
+
+const router = jsonServer.router(DB_PATH);
 
 function getDB() {
   return router.db.get('visits');
@@ -60,7 +62,7 @@ class DataController {
     }
 
     visit.reports.forEach((fileName) => {
-      const fullFilePath = path.join(uploadsFolderPath, fileName);
+      const fullFilePath = path.join(UPLOADS_FOLDER_PATH, fileName);
       fs.unlinkSync(fullFilePath);
     });
 
@@ -70,14 +72,14 @@ class DataController {
   }
 
   getFilesStoragePath(req, res) {
-    res.status(200).json(uploadsFolderPath);
+    res.status(200).json(UPLOADS_FOLDER_PATH);
   }
 
   async uploadFiles(req, res) {
     try {
       const files = Array.isArray(req.files.reports) ? req.files.reports : [req.files.reports];
       const fileNames = files.map((file) => processFileName(file.name));
-      const filePaths = fileNames.map((fileName) => path.join(uploadsFolderPath, fileName));
+      const filePaths = fileNames.map((fileName) => path.join(UPLOADS_FOLDER_PATH, fileName));
 
       files.forEach((file, index) => file.mv(filePaths[index]));
 
@@ -89,7 +91,7 @@ class DataController {
 
   deleteFiles(req, res) {
     req.body.forEach((fileName) => {
-      const filePath = path.join(uploadsFolderPath, fileName);
+      const filePath = path.join(UPLOADS_FOLDER_PATH, fileName);
       fs.unlinkSync(filePath);
     });
 
@@ -100,7 +102,7 @@ class DataController {
     const fileName = req.body.fileName;
 
     if (fileName) {
-      const filePath = path.join(uploadsFolderPath, req.body.fileName);
+      const filePath = path.join(UPLOADS_FOLDER_PATH, req.body.fileName);
 
       fs.access(filePath, fs.constants.F_OK, (error) => {
         if (error) {

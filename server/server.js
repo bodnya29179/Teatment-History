@@ -6,16 +6,19 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 
-const server = jsonServer.create();
-const router = jsonServer.router('server/database/db.json');
-const middlewares = jsonServer.defaults();
-
+const DB_PATH = path.join(__dirname, 'database/db.json');
+const UPLOADS_FOLDER_PATH = path.join(__dirname, 'database/uploads');
 const PORT = 3000;
 const HOSTNAME = 'localhost';
+const IS_DEV = process.env.NODE_ENV === 'development' || !process.env.ELECTRON_RUN_AS_NODE;
+
+const server = jsonServer.create();
+const router = jsonServer.router(DB_PATH);
+const middlewares = jsonServer.defaults();
 
 server.use(cors());
 
-server.use(ROUTES.uploads, express.static(path.join(__dirname, 'database/uploads')));
+server.use(ROUTES.uploads, express.static(UPLOADS_FOLDER_PATH));
 
 server.use(middlewares);
 server.use(fileUpload());
@@ -34,5 +37,7 @@ server.delete(ROUTES.deleteFiles, dataController.deleteFiles);
 server.use(router);
 
 server.listen(PORT, HOSTNAME, () => {
-  console.log(`Server is running at http://${ HOSTNAME }:${ PORT }/`);
+  if (IS_DEV) {
+    console.log(`Server is running at http://${ HOSTNAME }:${ PORT }/`);
+  }
 });
