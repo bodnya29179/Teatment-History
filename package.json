@@ -10,7 +10,29 @@
     "client-build": "ng build --base-href ./",
     "server": "nodemon server/server.js",
     "electron-run": "electron .",
-    "electron-build": "npx electron-packager . Treatment-History --platform=darwin --arch=x64 --out=dist --overwrite"
+    "electron-pack": "npx electron-builder"
+  },
+  "build": {
+    "appId": "com.electron.treatmenthistory",
+    "productName": "Treatment History",
+    "icon": "assets/icons/heart-pulse",
+    "files": [
+      "dist/",
+      "server/",
+      "main.js",
+      "node_modules/",
+      "assets/"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icons/heart-pulse.ico"
+    },
+    "mac": {
+      "icon": "assets/icons/heart-pulse.icns"
+    },
+    "linux": {
+      "icon": "assets/icons/heart-pulse.png"
+    }
   },
   "private": true,
   "dependencies": {
@@ -37,7 +59,7 @@
     "@angular/cli": "^17.3.7",
     "@angular/compiler-cli": "^17.3.0",
     "electron": "^32.1.2",
-    "electron-packager": "^17.1.2",
+    "electron-builder": "^25.1.7",
     "json-server": "^0.17.4",
     "nodemon": "^3.1.7",
     "npm-run-all": "^4.1.5",
