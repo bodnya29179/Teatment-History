@@ -10,11 +10,12 @@
     "client-build": "ng build --base-href ./",
     "server": "nodemon server/server.js",
     "electron-run": "electron .",
-    "electron-pack": "npx electron-builder"
+    "electron-pack": "npx electron-builder --overwrite"
   },
   "build": {
     "appId": "com.electron.treatmenthistory",
-    "productName": "Treatment_History",
+    "productName": "Treatment History",
+    "executableName": "treatment-history",
     "directories":{
       "output": "build"
     },
