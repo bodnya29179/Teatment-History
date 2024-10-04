@@ -22,8 +22,7 @@
       "dist/",
       "server/",
       "main.js",
-      "node_modules/",
-      "assets/"
+      "node_modules/"
     ],
     "win": {
       "target": "nsis",
