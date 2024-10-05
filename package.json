@@ -16,7 +16,7 @@
     "appId": "com.electron.treatmenthistory",
     "productName": "Treatment History",
     "executableName": "treatment-history",
-    "directories":{
+    "directories": {
       "output": "build"
     },
     "asarUnpack": [

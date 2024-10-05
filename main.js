@@ -75,7 +75,7 @@ function runServer() {
   serverProcess = spawn(
     'node',
     [serverPath],
-    { stdio: 'inherit', shell: true }
+    { stdio: 'inherit', shell: true },
   );
 }
 
