@@ -36,7 +36,9 @@
         <td>
           @if (visit.reports.length) {
             @for (report of visit.reports; track $index) {
-              <a class="report-reference" [href]="getReportPath(report)" target="_blank">{{ getReportName(report) }}</a>
+              <a role="button" tabindex="0" class="report-reference" (click)="openReport(report)">
+                {{ getReportName(report) }}
+              </a>
             }
           } @else {
             -

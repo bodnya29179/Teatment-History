@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom, Observable } from 'rxjs';
-import { LocaleService, StorageService } from '../../services';
+import { IpcService, LocaleService, StorageService } from '../../services';
 import { Visit } from '../../models';
 
 @Component({
@@ -25,6 +25,7 @@ export class TreatmentPageComponent  implements OnInit {
     private readonly storageService: StorageService,
     private readonly localeService: LocaleService,
     private readonly translate: TranslateService,
+    private readonly ipcService: IpcService,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -41,8 +42,12 @@ export class TreatmentPageComponent  implements OnInit {
     return `${ fileName }.${ fileFormat }`;
   }
 
-  getReportPath(fileName: string): string {
-    return `http://localhost:3000/uploads/${ fileName }`;
+  openReport(fileName: string): void {
+    if (this.ipcService.isElectronApp) {
+      this.ipcService.openFile(fileName);
+    } else {
+      window.open(`http://localhost:3000/uploads/${ fileName }`, '_blank');
+    }
   }
 
   toggleEditing(): void {

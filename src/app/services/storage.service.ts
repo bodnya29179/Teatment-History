@@ -7,7 +7,17 @@ import { VisitService } from './visit.service';
 export class StorageService {
   private readonly visits$ = new BehaviorSubject<Visit[]>([]);
 
+  private readonly filesStoragePath$ = new BehaviorSubject<string>(undefined);
+
   constructor(private readonly visitService: VisitService) {}
+
+  getFilesStoragePath(): Observable<string> {
+    if (this.filesStoragePath$.value) {
+      return this.filesStoragePath$;
+    }
+
+    return this.visitService.getFilesPath();
+  }
 
   getVisits(): Observable<Visit[]> {
     return this.visitService.getVisits()

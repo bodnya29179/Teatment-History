@@ -40,4 +40,8 @@ export class VisitService {
   deleteFiles(fileNames: string[]): Observable<void> {
     return this.http.delete<void>(`${ this.apiUrl }/delete-files`, { body: fileNames });
   }
+
+  getFilesPath(): Observable<string> {
+    return this.http.get<string>(`${ this.apiUrl }/files-storage-path`);
+  }
 }
