@@ -3,6 +3,12 @@
   "pages": {
     "home": "Kezdőlap",
     "treatment": {
+      "date": "Látogatás dátuma",
+      "address": "Látogatás helye",
+      "doctor": "Orvos",
+      "description": "Probléma leírása",
+      "conclusion": "Orvos következtetése",
+      "reports": "Orvosi zárójelentések",
       "edit": "Szerkesztés",
       "delete": "Törlés"
     }

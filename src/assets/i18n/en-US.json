@@ -3,13 +3,19 @@
   "pages": {
     "home": "Home",
     "treatment": {
+      "date": "Date of visit",
+      "address": "Visit place",
+      "doctor": "Doctor",
+      "description": "Problem description",
+      "conclusion": "Doctor's conclusion",
+      "reports": "Doctor's conclusions",
       "edit": "Edit",
       "delete": "Delete"
     }
   },
   "visit": {
     "date": "Date of visit",
-    "place": "Place",
+    "place": "Visit place",
     "doctorName": "Doctor's name",
     "doctorType": "Doctor's type",
     "description": "Problem description",
