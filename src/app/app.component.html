@@ -1,3 +1,7 @@
-<app-language></app-language>
+<app-language class="language"></app-language>
 
-<router-outlet></router-outlet>
+@if (isLoading) {
+  <h1 class="loader">{{ 'loading' | translate }}</h1>
+} @else {
+  <router-outlet></router-outlet>
+}

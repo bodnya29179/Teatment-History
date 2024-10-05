@@ -2,6 +2,7 @@ const { app, BrowserWindow } = require('electron');
 const childProcess = require('child_process');
 const path = require('path');
 const url = require('url');
+const waitOn = require('wait-on');
 
 const PLATFORMS = Object.freeze({
   macos: 'darwin',
@@ -21,13 +22,14 @@ const IS_DEV = !app.isPackaged;
 
 process.env.NODE_ENV = IS_DEV ? 'development' : 'production';
 
-let serverProcess = null;
+let mainWindow;
+let serverProcess;
 
 app.disableHardwareAcceleration();
 
 app.on(APP_EVENTS.ready, () => {
-  runServer();
   createWindow();
+  runServer();
 });
 
 app.on(APP_EVENTS.activate, () => {
@@ -45,7 +47,7 @@ app.on(APP_EVENTS.close, () => {
 });
 
 function createWindow() {
-  const win = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     icon: path.join(__dirname, CLIENT_BUILD_ROOT_PATH, 'assets/icons/favicon.png'),
     width: 940,
     minWidth: 940,
@@ -58,7 +60,7 @@ function createWindow() {
     },
   });
 
-  win.loadURL(
+  mainWindow.loadURL(
     url.format({
       pathname: path.join(__dirname, CLIENT_BUILD_ROOT_PATH, 'index.html'),
       protocol: 'file:',
@@ -68,9 +70,25 @@ function createWindow() {
 }
 
 function runServer() {
-  const serverPath = path.join(process.resourcesPath, 'app.asar.unpacked', 'server', 'server.js');
+  const serverPath = IS_DEV
+    ? path.join(__dirname, 'server', 'server.js')
+    : path.join(process.resourcesPath, 'app.asar.unpacked', 'server', 'server.js');
 
   childProcess.fork(serverPath);
+
+  const options = {
+    resources: ['http://localhost:3000'],
+    timeout: 30_000,
+  };
+
+  waitOn(options, (err) => {
+    if (err) {
+      console.error('Error waiting for server:', err);
+      return;
+    }
+
+    mainWindow.webContents.send('server-ready', 'ready');
+  });
 }
 
 function stopServer() {

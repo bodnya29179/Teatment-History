@@ -14,7 +14,7 @@ import {
   HomePageComponent,
   BreadcrumbComponent,
 } from './components';
-import { VisitService, StorageService, LocaleService } from './services';
+import { VisitService, StorageService, LocaleService, IpcService } from './services';
 import { Route, RouterModule } from '@angular/router';
 
 const routes: Route[] = [
@@ -47,6 +47,7 @@ const routes: Route[] = [
     StorageService,
     DatePipe,
     LocaleService,
+    IpcService,
   ],
   bootstrap: [AppComponent],
 })

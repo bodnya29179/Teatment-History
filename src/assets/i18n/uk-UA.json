@@ -1,4 +1,5 @@
 {
+  "loading": "⌛ Завантаження...",
   "pages": {
     "home": "Головна сторінка",
     "treatment": {
@@ -17,7 +18,7 @@
     "delete": "Видалити",
     "deleteConfirmation": "Ви впевнені що хочете видалити запис?",
     "uploadConclusions": "Завантажити висновоки лікаря",
-    "addVisit": "Додати візит",
+    "addVisit": "➕ Додати візит",
     "saveChanges": "Зберегти зміни",
     "cancelChanges": "Відмінити зміни",
     "doctor": "Лікар",

@@ -1,4 +1,5 @@
 {
+  "loading": "⌛ Loading...",
   "pages": {
     "home": "Home",
     "treatment": {
@@ -17,7 +18,7 @@
     "delete": "Delete",
     "deleteConfirmation": "Are you sure you want to delete the entry?",
     "uploadConclusions": "Upload doctor's conclusions",
-    "addVisit": "Add visit",
+    "addVisit": "➕ Add visit",
     "doctor": "Doctor",
     "search": "Search"
   },

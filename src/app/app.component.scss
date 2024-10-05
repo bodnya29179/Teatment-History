@@ -1,8 +1,17 @@
 :host {
   display: block;
   padding: 30px;
+  height: calc(100% - 2 * 30px);
+  overflow: auto;
 }
 
-app-language {
+.loader {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.language {
   margin: 0 0 30px;
 }
