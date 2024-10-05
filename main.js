@@ -1,5 +1,5 @@
 const { app, BrowserWindow } = require('electron');
-const { spawn } = require('child_process');
+const childProcess = require('child_process');
 const path = require('path');
 const url = require('url');
 
@@ -68,15 +68,9 @@ function createWindow() {
 }
 
 function runServer() {
-  const serverPath = IS_DEV
-    ? path.join(__dirname, 'server', 'server.js')
-    : path.join(process.resourcesPath, 'app.asar.unpacked', 'server', 'server.js');
+  const serverPath = path.join(process.resourcesPath, 'app.asar.unpacked', 'server', 'server.js');
 
-  serverProcess = spawn(
-    'node',
-    [serverPath],
-    { stdio: 'inherit', shell: true },
-  );
+  childProcess.fork(serverPath);
 }
 
 function stopServer() {
