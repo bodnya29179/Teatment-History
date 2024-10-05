@@ -32,13 +32,27 @@ uploaded files are saved to a local directory.
    npm ci
    ```
   
-- Run the Angular app:
+- Run the app in browser:
 
    ```bash
-   npm run start
+   npm run start-web
+   ```
+
+- Run the app as a desktop app:
+
+   ```bash
+   npm run start-desktop
    ```
 
 The application should now be running at http://localhost:4200/.
+
+## Build
+
+Build the app:
+
+   ```bash
+   npm run build-desktop
+   ```
 
 ## License
 This project is licensed under the MIT License.
