@@ -77,8 +77,9 @@ function runServer() {
   childProcess.fork(serverPath);
 
   const options = {
-    resources: ['http://localhost:3000'],
-    timeout: 30_000,
+    resources: ['tcp:3000'],
+    interval: 1_000,
+    timeout: 10_000,
   };
 
   waitOn(options, (err) => {
