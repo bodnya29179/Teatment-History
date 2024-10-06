@@ -25,7 +25,8 @@ class DataController {
     const visit = getDB().find({ id }).value();
 
     if (!visit) {
-      return res.status(404).json({ message: 'Visit not found' });
+      res.status(404).json({ message: 'Visit not found' });
+      return;
     }
 
     res.status(200).send(visit);
@@ -58,7 +59,8 @@ class DataController {
     const visit = getDB().find({ id }).value();
 
     if (!visit) {
-      return res.status(404).json({ message: 'Visit not found' });
+      res.status(404).json({ message: 'Visit not found' });
+      return;
     }
 
     visit.reports.forEach((fileName) => {
@@ -106,15 +108,17 @@ class DataController {
 
       fs.access(filePath, fs.constants.F_OK, (error) => {
         if (error) {
-          return res.status(404).json({ message: `File "${fileName}" not found.` });
+          res.status(404).json({ message: `File "${fileName}" not found.` });
+          return;
         }
 
         fs.unlink(filePath, (error) => {
           if (error) {
-            return res.status(500).json({ message: 'Error deleting file.', error: error.message });
+            res.status(500).json({ message: 'Error deleting file.', error: error.message });
+            return;
           }
 
-          return res.status(200);
+          res.status(200);
         });
       });
     } else {

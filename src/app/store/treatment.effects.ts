@@ -1,4 +1,6 @@
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, EMPTY, firstValueFrom, map, mergeMap, of, switchMap } from 'rxjs';
 import { TreatmentFacadeService, VisitService } from '../services';
@@ -57,7 +59,13 @@ export class TreatmentEffects {
           return this.visitService.getVisitById(visitId)
             .pipe(
               map((visit: Visit) => visitLoaded({ visit })),
-              catchError(() => EMPTY),
+              catchError((error: HttpErrorResponse) => {
+                if (error.status === HttpStatusCode.NotFound) {
+                  this.router.navigate(['/']);
+                }
+
+                return EMPTY;
+              }),
             );
         }),
       );
@@ -121,6 +129,7 @@ export class TreatmentEffects {
 
   constructor(
     private readonly actions$: Actions,
+    private readonly router: Router,
     private readonly visitService: VisitService,
     private readonly treatmentFacadeService: TreatmentFacadeService,
   ) {}
