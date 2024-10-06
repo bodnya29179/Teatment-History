@@ -20,6 +20,12 @@ const APP_EVENTS = Object.freeze({
   windowBlur: 'browser-window-blur',
 });
 
+const BUTTONS = Object.freeze({
+  f5: 'F5',
+  controlR: 'CommandOrControl+R',
+  controlShiftR: 'CommandOrControl+Shift+R',
+});
+
 const CLIENT_BUILD_ROOT_PATH = 'dist/treatment-history/browser';
 
 const IS_DEV = !app.isPackaged;
@@ -61,16 +67,16 @@ app.on(APP_EVENTS.willQuit, () => {
   }
 });
 
-app.on(APP_EVENTS.windowFocus, function () {
-  globalShortcut.register('CommandOrControl+R', () => {});
-  globalShortcut.register('CommandOrControl+Shift+R', () => {});
-  globalShortcut.register('F5', () => {});
+app.on(APP_EVENTS.windowFocus, () => {
+  globalShortcut.register(BUTTONS.controlR, () => {});
+  globalShortcut.register(BUTTONS.controlShiftR, () => {});
+  globalShortcut.register(BUTTONS.f5, () => {});
 });
 
-app.on(APP_EVENTS.windowBlur, function () {
-  globalShortcut.unregister('CommandOrControl+R');
-  globalShortcut.unregister('CommandOrControl+Shift+R');
-  globalShortcut.unregister('F5');
+app.on(APP_EVENTS.windowBlur, () => {
+  globalShortcut.unregister(BUTTONS.controlR);
+  globalShortcut.unregister(BUTTONS.controlShiftR);
+  globalShortcut.unregister(BUTTONS.f5);
 });
 
 function createWindow() {
