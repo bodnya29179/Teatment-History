@@ -14,11 +14,14 @@ const APP_EVENTS = Object.freeze({
   ready: 'ready',
   activate: 'activate',
   close: 'window-all-closed',
+  willQuit: 'will-quit',
 });
 
 const CLIENT_BUILD_ROOT_PATH = 'dist/treatment-history/browser';
 
 const IS_DEV = !app.isPackaged;
+
+const IS_MACOS = process.platform === PLATFORMS.macos;
 
 process.env.NODE_ENV = IS_DEV ? 'development' : 'production';
 
@@ -33,19 +36,24 @@ app.on(APP_EVENTS.ready, () => {
 });
 
 app.on(APP_EVENTS.activate, () => {
-  if (!BrowserWindow.getAllWindows().length) {
+  const areAllWindowsClosed = !BrowserWindow.getAllWindows().length;
+
+  if (areAllWindowsClosed) {
     createWindow();
+    sendServerReadyEvent();
   }
 });
 
 app.on(APP_EVENTS.close, () => {
-  if (process.platform !== PLATFORMS.macos) {
-    app.quit();
+  if (!IS_MACOS) {
+    closeWindow();
   }
+});
 
-  mainWindow = undefined;
-
-  stopServer();
+app.on(APP_EVENTS.willQuit, () => {
+  if (IS_MACOS) {
+    closeWindow();
+  }
 });
 
 function createWindow() {
@@ -76,7 +84,6 @@ function runServer() {
     ? path.join(__dirname, 'server', 'server.js')
     : path.join(process.resourcesPath, 'app.asar.unpacked', 'server', 'server.js');
 
-  childProcess.fork(serverPath);
 
   const options = {
     resources: ['tcp:3000'],
