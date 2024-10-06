@@ -1,4 +1,4 @@
-const { app, ipcMain, BrowserWindow } = require('electron');
+const { app, ipcMain, globalShortcut, BrowserWindow } = require('electron');
 const childProcess = require('child_process');
 const path = require('path');
 const url = require('url');
@@ -16,6 +16,8 @@ const APP_EVENTS = Object.freeze({
   close: 'window-all-closed',
   willQuit: 'will-quit',
   clientRendered: 'renderer-ready',
+  windowFocus: 'browser-window-focus',
+  windowBlur: 'browser-window-blur',
 });
 
 const CLIENT_BUILD_ROOT_PATH = 'dist/treatment-history/browser';
@@ -57,6 +59,18 @@ app.on(APP_EVENTS.willQuit, () => {
   if (IS_MACOS) {
     closeWindow();
   }
+});
+
+app.on(APP_EVENTS.windowFocus, function () {
+  globalShortcut.register('CommandOrControl+R', () => {});
+  globalShortcut.register('CommandOrControl+Shift+R', () => {});
+  globalShortcut.register('F5', () => {});
+});
+
+app.on(APP_EVENTS.windowBlur, function () {
+  globalShortcut.unregister('CommandOrControl+R');
+  globalShortcut.unregister('CommandOrControl+Shift+R');
+  globalShortcut.unregister('F5');
 });
 
 function createWindow() {
