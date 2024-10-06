@@ -16,13 +16,13 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.treatmentFacadeService.loadFilesStoragePath();
-
     if (this.ipcService.isElectronApp) {
       this.ipcService.on('server-ready', () => {
         this.zone.run(() => {
           this.isLoading = false;
         });
+
+        this.treatmentFacadeService.loadFilesStoragePath();
       });
     } else {
       this.isLoading = false;
