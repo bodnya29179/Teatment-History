@@ -4,11 +4,9 @@ const ROUTES = Object.freeze({
   addVisit: '/add-visit',
   updateVisit: '/update-visit/:id',
   deleteVisit: '/delete-visit/:id',
-
   getFilesStoragePath: '/files-storage-path',
   uploadFiles: '/upload-files',
   deleteFiles: '/delete-files',
-
   uploads: '/uploads',
 });
 
