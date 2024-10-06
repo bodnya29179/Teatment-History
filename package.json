@@ -9,7 +9,7 @@
     "client-run": "ng serve --open",
     "client-build": "ng build --base-href ./",
     "electron-run": "electron .",
-    "electron-pack": "npx electron-builder --overwrite",
+    "electron-pack": "npx electron-builder",
     "server": "nodemon server/server.js"
   },
   "build": {
