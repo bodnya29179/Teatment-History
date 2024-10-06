@@ -1,24 +1,3 @@
 {
-  "visits": [
-    {
-      "id": "2fc099fc-d5d9-44bd-9f46-75ee2d7f09b9",
-      "doctorName": "1",
-      "doctorType": "urologist",
-      "date": "2024-09-12",
-      "description": "2",
-      "conclusion": "3",
-      "address": "4",
-      "reports": []
-    },
-    {
-      "id": "66f3ec33-a7c3-493b-a3a5-0702918748ec",
-      "doctorName": "Лікар 333",
-      "doctorType": "ophthalmologist",
-      "date": "2024-10-01",
-      "description": "Проблема 333",
-      "conclusion": "Висновок....333",
-      "address": "Будапешт 333",
-      "reports": []
-    }
-  ]
+  "visits": []
 }

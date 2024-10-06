@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { StorageService } from '../../services';
+import { TreatmentFacadeService } from '../../services';
 import { DoctorType, Visit } from '../../models';
 
 @Component({
@@ -30,7 +30,7 @@ export class VisitFormComponent implements OnInit {
     return !!this.visit;
   }
 
-  constructor(private readonly storageService: StorageService) {}
+  constructor(private readonly treatmentFacadeService: TreatmentFacadeService) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -58,9 +58,9 @@ export class VisitFormComponent implements OnInit {
 
   save(): void {
     if (this.isEditing) {
-      this.storageService.updateVisit(this.visit.id, this.form.value);
+      this.treatmentFacadeService.updateVisit(this.visit.id, this.form.value);
     } else {
-      this.storageService.addVisit(this.form.value);
+      this.treatmentFacadeService.addVisit(this.form.value);
       this.form.reset();
     }
 

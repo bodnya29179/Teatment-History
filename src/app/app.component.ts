@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { IpcService } from './services';
+import { IpcService, TreatmentFacadeService } from './services';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +11,13 @@ export class AppComponent implements OnInit {
 
   constructor(
     private readonly ipcService: IpcService,
+    private readonly treatmentFacadeService: TreatmentFacadeService,
     private readonly zone: NgZone,
   ) {}
 
   ngOnInit(): void {
+    this.treatmentFacadeService.loadFilesStoragePath();
+
     if (this.ipcService.isElectronApp) {
       this.ipcService.on('server-ready', () => {
         this.zone.run(() => {

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Visit } from '../../models';
 import { ActivatedRoute } from '@angular/router';
-import { LocaleService, StorageService } from '../../services';
-import { firstValueFrom } from 'rxjs';
+import { LocaleService, TreatmentFacadeService } from '../../services';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -10,7 +10,7 @@ import { firstValueFrom } from 'rxjs';
   styleUrl: './breadcrumb.component.scss',
 })
 export class BreadcrumbComponent implements OnInit {
-  visit: Visit;
+  visit$: Observable<Visit>;
 
   get currentLanguage(): string {
     return this.localeService.currentLanguage;
@@ -18,12 +18,12 @@ export class BreadcrumbComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly storageService: StorageService,
     private readonly localeService: LocaleService,
+    private readonly treatmentFacadeService: TreatmentFacadeService,
   ) {}
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     const visitId = this.route.snapshot.params['id'];
-    this.visit = await firstValueFrom(this.storageService.getVisitById(visitId));
+    this.visit$ = this.treatmentFacadeService.getVisitById(visitId);
   }
 }

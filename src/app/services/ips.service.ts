@@ -1,25 +1,15 @@
 import { Injectable } from '@angular/core';
 import { IpcRenderer } from 'electron';
 import { firstValueFrom } from 'rxjs';
-import { StorageService } from './storage.service';
+import { TreatmentFacadeService } from './treatment-facade.service';
 
 @Injectable()
 export class IpcService {
-  private readonly electron: typeof Electron.CrossProcessExports;
-  private readonly ipc: IpcRenderer | undefined;
+  private electron: typeof Electron.CrossProcessExports;
+  private ipc: IpcRenderer | undefined;
 
-  constructor(private readonly storageService: StorageService) {
-    if (window.require) {
-      try {
-        this.electron = window.require('electron');
-        this.ipc = this.electron.ipcRenderer;
-        this.ipc.send('renderer-ready');
-      } catch (error) {
-        throw error;
-      }
-    } else {
-      console.warn('Electron\'s IPC was not loaded');
-    }
+  constructor(private readonly treatmentFacadeService: TreatmentFacadeService) {
+    this.initializeValues();
   }
 
   get isElectronApp(): boolean {
@@ -43,7 +33,21 @@ export class IpcService {
   }
 
   async openFile(filePath: string): Promise<void> {
-    const absolutePath = await firstValueFrom(this.storageService.getFilesStoragePath());
+    const absolutePath = await firstValueFrom(this.treatmentFacadeService.getFilesStoragePath());
     await this.electron.shell.openPath(`${ absolutePath }/${ filePath }`);
+  }
+
+  private initializeValues(): void {
+    if (window.require) {
+      try {
+        this.electron = window.require('electron');
+        this.ipc = this.electron.ipcRenderer;
+        this.ipc.send('renderer-ready');
+      } catch (error) {
+        throw error;
+      }
+    } else {
+      console.warn('Electron\'s IPC was not loaded');
+    }
   }
 }

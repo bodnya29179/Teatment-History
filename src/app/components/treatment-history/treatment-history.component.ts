@@ -1,12 +1,12 @@
 import { Component, DestroyRef, OnInit } from '@angular/core';
-import { combineLatest, firstValueFrom, map, Observable, startWith } from 'rxjs';
+import { combineLatest, map, Observable, startWith } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { DoctorType, SortDirection, SortOption, Visit } from '../../models';
-import { LocaleService, StorageService } from '../../services';
+import { LocaleService, TreatmentFacadeService } from '../../services';
 import { sortAlphabetically } from '../../utils';
 
 @Component({
@@ -34,11 +34,11 @@ export class TreatmentHistoryComponent implements OnInit {
   }
 
   constructor(
-    private readonly storageService: StorageService,
     private readonly router: Router,
     private readonly translate: TranslateService,
     private readonly datePipe: DatePipe,
     private readonly localeService: LocaleService,
+    private readonly treatmentFacadeService: TreatmentFacadeService,
     private readonly destroyRef: DestroyRef,
   ) {}
 
@@ -55,7 +55,7 @@ export class TreatmentHistoryComponent implements OnInit {
     const isConfirmed = confirm(this.translate.instant('visit.deleteConfirmation'));
 
     if (isConfirmed) {
-      firstValueFrom(this.storageService.deleteVisit(visitId));
+      this.treatmentFacadeService.deleteVisit(visitId);
     }
   }
 
@@ -73,9 +73,9 @@ export class TreatmentHistoryComponent implements OnInit {
     const search$ = this.searchControl.valueChanges.pipe(startWith(this.searchControl.value));
     const sortOption$ = this.sortOptionControl.valueChanges.pipe(startWith(this.sortOptionControl.value));
     const sortDirection$ = this.sortDirectionControl.valueChanges.pipe(startWith(this.sortDirectionControl.value));
-    const visits$ = this.storageService.getVisits();
+    const visits$ = this.treatmentFacadeService.getVisits();
 
-    this.visits$ = combineLatest([search$, sortOption$, sortDirection$, visits$,])
+    this.visits$ = combineLatest([search$, sortOption$, sortDirection$, visits$])
       .pipe(
         map(([searchValue, sortOption, sortDirection, visits]) => {
           const searchResult = this.searchVisits(visits, searchValue);

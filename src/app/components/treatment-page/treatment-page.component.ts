@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom, Observable } from 'rxjs';
-import { IpcService, LocaleService, StorageService } from '../../services';
+import { IpcService, LocaleService, TreatmentFacadeService } from '../../services';
 import { Visit } from '../../models';
 
 @Component({
@@ -22,15 +22,17 @@ export class TreatmentPageComponent  implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly storageService: StorageService,
     private readonly localeService: LocaleService,
     private readonly translate: TranslateService,
     private readonly ipcService: IpcService,
+    private readonly treatmentFacadeService: TreatmentFacadeService,
   ) {}
 
   async ngOnInit(): Promise<void> {
     const visitId = this.route.snapshot.params['id'];
-    this.visit$ = this.storageService.getVisitById(visitId);
+
+    this.treatmentFacadeService.loadVisit(visitId);
+    this.visit$ = this.treatmentFacadeService.getVisitById(visitId);
   }
 
   getReportName(report: string): string {
@@ -54,11 +56,13 @@ export class TreatmentPageComponent  implements OnInit {
     this.isEditing = !this.isEditing;
   }
 
-  deleteVisit(): void {
+  async deleteVisit(): Promise<void> {
     const isConfirmed = confirm(this.translate.instant('visit.deleteConfirmation'));
 
     if (isConfirmed) {
-      firstValueFrom(this.storageService.deleteVisit(this.route.snapshot.params['id']));
+      const visit = await firstValueFrom(this.visit$);
+
+      this.treatmentFacadeService.deleteVisit(visit.id);
       this.router.navigate(['/']);
     }
   }

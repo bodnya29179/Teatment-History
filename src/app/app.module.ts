@@ -14,11 +14,12 @@ import {
   HomePageComponent,
   BreadcrumbComponent,
 } from './components';
-import { VisitService, StorageService, LocaleService, IpcService } from './services';
+import { VisitService, LocaleService, IpcService, TreatmentFacadeService } from './services';
 import { Route, RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { TreatmentEffects, treatmentReducer } from './store';
 
 const routes: Route[] = [
   { path: '', component: HomePageComponent },
@@ -35,8 +36,8 @@ const routes: Route[] = [
     TranslationConfigModule,
     TranslateModule,
     RouterModule.forRoot(routes),
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot({ treatments: treatmentReducer }),
+    EffectsModule.forRoot([TreatmentEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: !isDevMode(),
@@ -53,10 +54,10 @@ const routes: Route[] = [
   ],
   providers: [
     VisitService,
-    StorageService,
     DatePipe,
     LocaleService,
     IpcService,
+    TreatmentFacadeService,
   ],
   bootstrap: [AppComponent],
 })

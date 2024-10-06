@@ -6,6 +6,10 @@ html, body {
   padding: 0;
 }
 
+button[disabled] {
+  cursor: default;
+}
+
 textarea {
   resize: none;
   field-sizing: content;
