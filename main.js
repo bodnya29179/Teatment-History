@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, ipcMain, BrowserWindow } = require('electron');
 const childProcess = require('child_process');
 const path = require('path');
 const url = require('url');
@@ -15,6 +15,7 @@ const APP_EVENTS = Object.freeze({
   activate: 'activate',
   close: 'window-all-closed',
   willQuit: 'will-quit',
+  clientRendered: 'renderer-ready',
 });
 
 const CLIENT_BUILD_ROOT_PATH = 'dist/treatment-history/browser';
@@ -34,6 +35,8 @@ app.on(APP_EVENTS.ready, () => {
   createWindow();
   runServer();
 });
+
+ipcMain.on(APP_EVENTS.clientRendered, () => listenServer());
 
 app.on(APP_EVENTS.activate, () => {
   const areAllWindowsClosed = !BrowserWindow.getAllWindows().length;
@@ -91,6 +94,18 @@ function runServer() {
     : path.join(process.resourcesPath, 'app.asar.unpacked', 'server', 'server.js');
 
   serverProcess = childProcess.fork(serverPath);
+}
+
+function stopServer() {
+  serverProcess?.kill();
+}
+
+function listenServer() {
+  const options = {
+    resources: ['tcp:3000'],
+    interval: 500,
+    timeout: 10_000,
+  };
 
   waitOn(options, (err) => {
     if (err) {
@@ -98,10 +113,10 @@ function runServer() {
       return;
     }
 
-    mainWindow.webContents.send('server-ready', 'ready');
+    sendServerReadyEvent();
   });
 }
 
-function stopServer() {
-  serverProcess?.kill();
+function sendServerReadyEvent() {
+  mainWindow.webContents.send('server-ready', 'ready');
 }

@@ -13,6 +13,7 @@ export class IpcService {
       try {
         this.electron = window.require('electron');
         this.ipc = this.electron.ipcRenderer;
+        this.ipc.send('renderer-ready');
       } catch (error) {
         throw error;
       }
