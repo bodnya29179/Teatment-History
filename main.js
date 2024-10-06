@@ -43,6 +43,8 @@ app.on(APP_EVENTS.close, () => {
     app.quit();
   }
 
+  mainWindow = undefined;
+
   stopServer();
 });
 
