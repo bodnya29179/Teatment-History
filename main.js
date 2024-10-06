@@ -79,17 +79,18 @@ function createWindow() {
   );
 }
 
+function closeWindow() {
+  stopServer();
+  mainWindow = undefined;
+  app.quit();
+}
+
 function runServer() {
   const serverPath = IS_DEV
     ? path.join(__dirname, 'server', 'server.js')
     : path.join(process.resourcesPath, 'app.asar.unpacked', 'server', 'server.js');
 
-
-  const options = {
-    resources: ['tcp:3000'],
-    interval: 1_000,
-    timeout: 10_000,
-  };
+  serverProcess = childProcess.fork(serverPath);
 
   waitOn(options, (err) => {
     if (err) {
