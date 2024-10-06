@@ -15,7 +15,7 @@
   },
   "visit": {
     "date": "Дата візиту",
-    "place": "Місце",
+    "place": "Місце візиту",
     "doctorName": "Ім'я лікаря",
     "doctorType": "Тип лікаря",
     "description": "Опис проблеми",

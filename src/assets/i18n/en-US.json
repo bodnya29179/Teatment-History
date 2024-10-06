@@ -25,6 +25,8 @@
     "deleteConfirmation": "Are you sure you want to delete the entry?",
     "uploadConclusions": "Upload doctor's conclusions",
     "addVisit": "➕ Add visit",
+    "saveChanges": "Save changes",
+    "cancelChanges": "Cancel changes",
     "doctor": "Doctor",
     "search": "Search"
   },

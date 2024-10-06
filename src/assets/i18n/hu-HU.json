@@ -25,6 +25,8 @@
     "deleteConfirmation": "Biztosan törölni szeretnéd a bejegyzést?",
     "uploadConclusions": "Orvosi következtetések feltöltése",
     "addVisit": "➕ Látogatás hozzáadása",
+    "saveChanges": "Változások mentése",
+    "cancelChanges": "Változások visszavonása",
     "doctor": "Orvos",
     "search": "Keresés"
   },

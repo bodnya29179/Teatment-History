@@ -1,4 +1,4 @@
-<app-breadcrumb></app-breadcrumb>
+<app-breadcrumb class="breadcrumb"></app-breadcrumb>
 
 @if (visit$ | async; as visit) {
   @if (isEditing) {
@@ -33,7 +33,7 @@
       </tr>
       <tr>
         <th>{{ 'pages.treatment.reports' | translate }}</th>
-        <td>
+        <td class="reports">
           @if (visit.reports.length) {
             @for (report of visit.reports; track $index) {
               <a role="button" tabindex="0" class="report-reference" (click)="openReport(report)">
@@ -47,7 +47,7 @@
       </tr>
       <tr>
         <th></th>
-        <td>
+        <td class="actions">
           <button (click)="toggleEditing()">{{ 'pages.treatment.edit' | translate }}</button>
           <button (click)="deleteVisit()">{{ 'pages.treatment.delete' | translate }}</button>
         </td>
