@@ -11,6 +11,7 @@ uploaded files are saved to a local directory.
 - View visit history, sorted by date or doctor type.
 - Delete visits, including the removal of any uploaded files.
 - Import and export data.
+- Supports macOS and Windows.
 
 ## Installation
 
