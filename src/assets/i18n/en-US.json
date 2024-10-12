@@ -32,6 +32,7 @@
   },
   "addNewVisit": "Add new visit",
   "visitsHistory": "Visits history",
+  "exportData": "Export data",
   "emptyHistory": "No visits added yet.",
   "noMatches": "No matches found.",
   "doctorTypes": {

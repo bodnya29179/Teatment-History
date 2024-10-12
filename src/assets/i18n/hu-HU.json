@@ -32,6 +32,7 @@
   },
   "addNewVisit": "Új látogatás hozzáadása",
   "visitsHistory": "Látogatások története",
+  "exportData": "Adatok exportálása",
   "emptyHistory": "Nincs hozzáadott látogatás.",
   "noMatches": "Nincs találat.",
   "doctorTypes": {

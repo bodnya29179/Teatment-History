@@ -32,6 +32,7 @@
   },
   "addNewVisit": "Додати новий візит",
   "visitsHistory": "Історія візитів",
+  "exportData": "Експортувати дані",
   "emptyHistory": "Візити ще не додані.",
   "noMatches": "Співпадінь не знайдено.",
   "doctorTypes": {

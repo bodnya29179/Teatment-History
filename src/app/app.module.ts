@@ -14,7 +14,13 @@ import {
   HomePageComponent,
   BreadcrumbComponent,
 } from './components';
-import { VisitService, LocaleService, IpcService, TreatmentFacadeService } from './services';
+import {
+  VisitService,
+  LocaleService,
+  IpcService,
+  TreatmentFacadeService,
+  FileService,
+} from './services';
 import { Route, RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -58,6 +64,7 @@ const routes: Route[] = [
     LocaleService,
     IpcService,
     TreatmentFacadeService,
+    FileService,
   ],
   bootstrap: [AppComponent],
 })

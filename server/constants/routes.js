@@ -8,6 +8,7 @@ const ROUTES = Object.freeze({
   uploadFiles: '/upload-files',
   deleteFiles: '/delete-files',
   uploads: '/uploads',
+  exportData: '/export',
 });
 
 module.exports = ROUTES;

@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import {
   addVisit,
   deleteVisit,
+  exportData,
   loadFilesStoragePath,
   loadVisit,
   loadVisits,
@@ -69,5 +70,9 @@ export class TreatmentFacadeService {
 
   getFilesStoragePath(): Observable<string> {
     return this.store.select(selectFilesStoragePath).pipe(filter(Boolean));
+  }
+
+  exportData(): void {
+    this.store.dispatch(exportData());
   }
 }

@@ -1,4 +1,7 @@
-<h2 class="header">{{ 'visitsHistory' | translate }}</h2>
+<div class="header">
+  <h2>{{ 'visitsHistory' | translate }}</h2>
+  <button (click)="exportData()">{{ 'exportData' | translate }}</button>
+</div>
 
 <input class="search" type="text" [formControl]="searchControl" [placeholder]="'visit.search' | translate">
 

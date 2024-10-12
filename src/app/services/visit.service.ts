@@ -44,4 +44,8 @@ export class VisitService {
   getFilesPath(): Observable<string> {
     return this.http.get<string>(`${ this.apiUrl }/files-storage-path`);
   }
+
+  exportData(): Observable<Blob> {
+    return this.http.get(`${ this.apiUrl }/export`, { responseType: 'blob' });
+  }
 }

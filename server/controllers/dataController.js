@@ -2,10 +2,13 @@ const jsonServer = require('json-server');
 const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 const fs = require('fs');
+const archiver = require('archiver');
 const { processFileName } = require('../utils');
 
+const DB_FOLDER_PATH = path.join(__dirname, '..', 'database');
 const DB_PATH = path.join(__dirname, '..', '/database/db.json');
 const UPLOADS_FOLDER_PATH = path.join(__dirname, '..', '/database/uploads');
+const ZIP_FILE_PATH = path.join(__dirname, 'database.zip');
 
 const router = jsonServer.router(DB_PATH);
 
@@ -124,6 +127,34 @@ class DataController {
     } else {
       res.status(500).json({ message: 'Invalid file name' });
     }
+  }
+
+  exportData(req, res) {
+    const output = fs.createWriteStream(ZIP_FILE_PATH);
+
+    const archive = archiver('zip', {
+      zlib: {
+        level: 9,
+      },
+    });
+
+    output.on('close', () => {
+      res.download(ZIP_FILE_PATH, 'database.zip', (err) => {
+        if (err) {
+          res.status(500).send('Error downloading the file.');
+        } else {
+          fs.unlinkSync(ZIP_FILE_PATH);
+        }
+      });
+    });
+
+    archive.on('error', () => res.status(500).send('Error creating archive.'));
+
+    archive.pipe(output);
+
+    archive.directory(DB_FOLDER_PATH, false);
+
+    archive.finalize();
   }
 }
 

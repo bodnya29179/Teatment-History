@@ -2,11 +2,12 @@ import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, EMPTY, firstValueFrom, map, mergeMap, of, switchMap } from 'rxjs';
-import { TreatmentFacadeService, VisitService } from '../services';
+import { catchError, EMPTY, firstValueFrom, map, mergeMap, of, switchMap, tap } from 'rxjs';
+import { FileService, TreatmentFacadeService, VisitService } from '../services';
 import {
   addVisit,
   deleteVisit,
+  exportData,
   filesStoragePathLoaded,
   loadFilesStoragePath,
   loadVisit,
@@ -127,10 +128,25 @@ export class TreatmentEffects {
       );
   });
 
+  private readonly exportData$ = createEffect(() => {
+    return this.actions$
+      .pipe(
+        ofType(exportData),
+        mergeMap(() => {
+          return this.visitService.exportData()
+            .pipe(
+              tap((blob: Blob) => this.fileService.downloadFile(blob, 'database.zip')),
+              catchError(() => EMPTY),
+            );
+        }),
+      );
+  }, { dispatch: false });
+
   constructor(
     private readonly actions$: Actions,
     private readonly router: Router,
     private readonly visitService: VisitService,
+    private readonly fileService: FileService,
     private readonly treatmentFacadeService: TreatmentFacadeService,
   ) {}
 

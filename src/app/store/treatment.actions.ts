@@ -18,3 +18,5 @@ export const visitUpdated = createAction('[Treatments] Visit updated', props<{ v
 
 export const deleteVisit = createAction('[Treatments] Delete visit', props<{ visitId: string }>());
 export const visitDeleted = createAction('[Treatments] Visit deleted', props<{ visitId: string }>());
+
+export const exportData = createAction('[Treatments] Export data');

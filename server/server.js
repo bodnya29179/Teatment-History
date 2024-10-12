@@ -33,6 +33,7 @@ server.delete(ROUTES.deleteVisit, dataController.deleteVisit);
 server.get(ROUTES.getFilesStoragePath, dataController.getFilesStoragePath);
 server.post(ROUTES.uploadFiles, dataController.uploadFiles);
 server.delete(ROUTES.deleteFiles, dataController.deleteFiles);
+server.get(ROUTES.exportData, dataController.exportData);
 
 server.use(router);
 

@@ -69,6 +69,10 @@ export class TreatmentHistoryComponent implements OnInit {
     }
   }
 
+  exportData(): void {
+    this.treatmentFacadeService.exportData();
+  }
+
   private initializeValues(): void {
     const search$ = this.searchControl.valueChanges.pipe(startWith(this.searchControl.value));
     const sortOption$ = this.sortOptionControl.valueChanges.pipe(startWith(this.sortOptionControl.value));
