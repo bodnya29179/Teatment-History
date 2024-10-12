@@ -10,6 +10,7 @@ uploaded files are saved to a local directory.
 - Upload files (PDFs, DOCX, images) related to the visit, such as reports or prescriptions.
 - View visit history, sorted by date or doctor type.
 - Delete visits, including the removal of any uploaded files.
+- Import and export data.
 
 ## Installation
 
