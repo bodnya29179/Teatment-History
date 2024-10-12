@@ -33,6 +33,7 @@
   "addNewVisit": "Add new visit",
   "visitsHistory": "Visits history",
   "exportData": "Export data",
+  "importData": "Import data",
   "emptyHistory": "No visits added yet.",
   "noMatches": "No matches found.",
   "doctorTypes": {

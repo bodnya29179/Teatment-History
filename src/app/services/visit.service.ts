@@ -48,4 +48,12 @@ export class VisitService {
   exportData(): Observable<Blob> {
     return this.http.get(`${ this.apiUrl }/export`, { responseType: 'blob' });
   }
+
+  importData(file: File): Observable<Visit[]> {
+    const formData = new FormData();
+
+    formData.append('archive', file);
+
+    return this.http.post<Visit[]>(`${ this.apiUrl }/import`, formData);
+  }
 }

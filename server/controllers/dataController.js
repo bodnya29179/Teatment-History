@@ -3,11 +3,12 @@ const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 const fs = require('fs');
 const archiver = require('archiver');
+const unzipper = require('unzipper');
 const { processFileName } = require('../utils');
 
 const DB_FOLDER_PATH = path.join(__dirname, '..', 'database');
-const DB_PATH = path.join(__dirname, '..', '/database/db.json');
-const UPLOADS_FOLDER_PATH = path.join(__dirname, '..', '/database/uploads');
+const DB_PATH = path.join(DB_FOLDER_PATH, 'db.json');
+const UPLOADS_FOLDER_PATH = path.join(DB_FOLDER_PATH, 'uploads');
 const ZIP_FILE_PATH = path.join(__dirname, 'database.zip');
 
 const router = jsonServer.router(DB_PATH);
@@ -130,31 +131,98 @@ class DataController {
   }
 
   exportData(req, res) {
-    const output = fs.createWriteStream(ZIP_FILE_PATH);
+    const errorMessage = 'Error creating archive.';
 
-    const archive = archiver('zip', {
-      zlib: {
-        level: 9,
-      },
-    });
+    try {
+      const output = fs.createWriteStream(ZIP_FILE_PATH);
 
-    output.on('close', () => {
-      res.download(ZIP_FILE_PATH, 'database.zip', (err) => {
-        if (err) {
-          res.status(500).send('Error downloading the file.');
-        } else {
-          fs.unlinkSync(ZIP_FILE_PATH);
-        }
+      const archive = archiver('zip', {
+        zlib: {
+          level: 9,
+        },
       });
-    });
 
-    archive.on('error', () => res.status(500).send('Error creating archive.'));
+      output.on('close', () => {
+        res.download(ZIP_FILE_PATH, 'database.zip', (err) => {
+          if (err) {
+            res.status(500).send('Error downloading the file.');
+          } else {
+            fs.unlinkSync(ZIP_FILE_PATH);
+          }
+        });
+      });
 
-    archive.pipe(output);
+      archive.on('error', () => res.status(500).send(errorMessage));
 
-    archive.directory(DB_FOLDER_PATH, false);
+      archive.pipe(output);
 
-    archive.finalize();
+      archive.directory(DB_FOLDER_PATH, false);
+
+      archive.finalize();
+    } catch (error) {
+      res.status(500).json({ message: errorMessage, error: error.message });
+    }
+  }
+
+  async importData(req, res) {
+    const errorMessage = 'Error unzipping archive.';
+
+    if (!req.files?.archive) {
+      res.status(400).send('Archive is not uploaded');
+      return;
+    }
+
+    try {
+      const archive = req.files.archive;
+      const tempDir = path.join(__dirname, 'temp');
+
+      if (!fs.existsSync(tempDir)) {
+        fs.mkdirSync(tempDir);
+      }
+
+      const archivePath = path.join(tempDir, archive.name);
+      await archive.mv(archivePath);
+
+      await new Promise((resolve, reject) => {
+        fs.createReadStream(archivePath)
+          .pipe(unzipper.Extract({ path: tempDir }))
+          .on('close', resolve)
+          .on('error', reject);
+      });
+
+      const extractedUploadsDir = path.join(tempDir, 'uploads');
+
+      if (fs.existsSync(extractedUploadsDir)) {
+        const files = fs.readdirSync(extractedUploadsDir);
+
+        files.forEach((file) => {
+          const sourcePath = path.join(extractedUploadsDir, file);
+          const destPath = path.join(UPLOADS_FOLDER_PATH, file);
+          fs.copyFileSync(sourcePath, destPath);
+        });
+      }
+
+      const extractedDbPath = path.join(tempDir, 'db.json');
+
+      if (fs.existsSync(extractedDbPath)) {
+        const newDb = JSON.parse(fs.readFileSync(extractedDbPath, 'utf-8'));
+        const currentVisits = getDB().value();
+
+        newDb.visits.forEach((newVisit) => {
+          const doesAlreadyExist = currentVisits.some((visit) => visit.id === newVisit.id);
+
+          if (!doesAlreadyExist) {
+            getDB().push(newVisit).write();
+          }
+        });
+      }
+
+      fs.rmSync(tempDir, { recursive: true, force: true });
+
+      res.status(200).send(getDB().value());
+    } catch (error) {
+      res.status(500).json({ message: errorMessage, error: error.message });
+    }
   }
 }
 

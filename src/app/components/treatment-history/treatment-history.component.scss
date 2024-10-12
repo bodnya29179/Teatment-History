@@ -11,10 +11,17 @@
 
 .header {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
   margin: 0 0 18px;
 
+  button {
+    height: fit-content;
+  }
+
   h2 {
+    flex: 1 1 0;
     margin: 0;
   }
 }

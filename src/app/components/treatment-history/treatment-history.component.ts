@@ -73,6 +73,14 @@ export class TreatmentHistoryComponent implements OnInit {
     this.treatmentFacadeService.exportData();
   }
 
+  importData(event: Event): void {
+    const file = Array.from((event.target as HTMLInputElement).files)[0];
+
+    if (file) {
+      this.treatmentFacadeService.importData(file);
+    }
+  }
+
   private initializeValues(): void {
     const search$ = this.searchControl.valueChanges.pipe(startWith(this.searchControl.value));
     const sortOption$ = this.sortOptionControl.valueChanges.pipe(startWith(this.sortOptionControl.value));

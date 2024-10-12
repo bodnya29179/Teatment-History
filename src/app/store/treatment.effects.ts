@@ -9,6 +9,7 @@ import {
   deleteVisit,
   exportData,
   filesStoragePathLoaded,
+  importData,
   loadFilesStoragePath,
   loadVisit,
   loadVisits,
@@ -141,6 +142,20 @@ export class TreatmentEffects {
         }),
       );
   }, { dispatch: false });
+
+  private readonly importData$ = createEffect(() => {
+    return this.actions$
+      .pipe(
+        ofType(importData),
+        mergeMap(({ file }: ActionType<typeof importData>) => {
+          return this.visitService.importData(file)
+            .pipe(
+              map((visits: Visit[]) => visitsLoaded({ visits })),
+              catchError(() => EMPTY),
+            );
+        }),
+      );
+  });
 
   constructor(
     private readonly actions$: Actions,

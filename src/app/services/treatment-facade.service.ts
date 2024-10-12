@@ -6,6 +6,7 @@ import {
   addVisit,
   deleteVisit,
   exportData,
+  importData,
   loadFilesStoragePath,
   loadVisit,
   loadVisits,
@@ -74,5 +75,9 @@ export class TreatmentFacadeService {
 
   exportData(): void {
     this.store.dispatch(exportData());
+  }
+
+  importData(file: File): void {
+    this.store.dispatch(importData({ file }));
   }
 }

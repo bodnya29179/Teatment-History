@@ -20,3 +20,4 @@ export const deleteVisit = createAction('[Treatments] Delete visit', props<{ vis
 export const visitDeleted = createAction('[Treatments] Visit deleted', props<{ visitId: string }>());
 
 export const exportData = createAction('[Treatments] Export data');
+export const importData = createAction('[Treatments] Import data', props<{ file: File }>());

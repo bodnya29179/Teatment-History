@@ -1,6 +1,11 @@
 <div class="header">
   <h2>{{ 'visitsHistory' | translate }}</h2>
+
   <button (click)="exportData()">{{ 'exportData' | translate }}</button>
+
+  <button (click)="importInput.click()">{{ 'importData' | translate }}</button>
+
+  <input #importInput style="display: none" type="file" (change)="importData($event)" accept=".zip" />
 </div>
 
 <input class="search" type="text" [formControl]="searchControl" [placeholder]="'visit.search' | translate">
