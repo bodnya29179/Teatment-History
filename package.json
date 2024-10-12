@@ -25,6 +25,7 @@
       "main.js",
       "node_modules/uuid/**/*",
       "node_modules/archiver/**/*",
+      "node_modules/archiver-utils/**/*",
       "node_modules/unzipper/**/*",
       "node_modules/json-server/**/*",
       "node_modules/express/**/*",
