@@ -59,12 +59,11 @@ export class VisitFormComponent implements OnInit {
   save(): void {
     if (this.isEditing) {
       this.treatmentFacadeService.updateVisit(this.visit.id, this.form.value);
+      this.closeForm.emit();
     } else {
       this.treatmentFacadeService.addVisit(this.form.value);
       this.form.reset();
     }
-
-    this.closeForm.emit();
   }
 
   cancel(): void {

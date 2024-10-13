@@ -5,7 +5,7 @@
 
   <button (click)="importInput.click()">{{ 'importData' | translate }}</button>
 
-  <input #importInput style="display: none" type="file" (change)="importData($event)" accept=".zip" />
+  <input #importInput type="file" (change)="importData($event)" accept=".zip" />
 </div>
 
 <input class="search" type="text" [formControl]="searchControl" [placeholder]="'visit.search' | translate">

@@ -42,9 +42,9 @@
     <label>
       <span>{{ 'visit.uploadConclusions' | translate }}:</span>
 
-      <button (click)="fileInput.click()">{{ 'chooseFiles' | translate }}</button>
+      <button type="button" (click)="fileInput.click()">{{ 'chooseFiles' | translate }}</button>
 
-      <input #fileInput style="display: none" type="file" (change)="handleFiles($event)" multiple accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" />
+      <input #fileInput type="file" (change)="handleFiles($event)" multiple accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" />
     </label>
 
     <div class="reports">
