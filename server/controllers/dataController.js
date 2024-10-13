@@ -19,9 +19,9 @@ function getDB() {
 
 class DataController {
   getVisits(req, res) {
-    const todos = getDB().value();
+    const visits = getDB().value();
 
-    res.status(200).send(todos);
+    res.status(200).send(visits);
   }
 
   getVisitById(req, res) {

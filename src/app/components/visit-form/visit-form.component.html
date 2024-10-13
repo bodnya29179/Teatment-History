@@ -39,10 +39,12 @@
       <input type="text" formControlName="address" />
     </label>
 
-    <!-- TODO -->
-    <label style="display: block; cursor: pointer">
+    <label>
       <span>{{ 'visit.uploadConclusions' | translate }}:</span>
-      <input style="cursor: pointer" type="file" (change)="handleFiles($event)" multiple accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" />
+
+      <button (click)="fileInput.click()">{{ 'chooseFiles' | translate }}</button>
+
+      <input #fileInput style="display: none" type="file" (change)="handleFiles($event)" multiple accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" />
     </label>
 
     <div class="reports">
