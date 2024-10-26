@@ -81,8 +81,12 @@ class DataController {
     res.status(200).json(UPLOADS_FOLDER_PATH);
   }
 
-  async uploadFiles(req, res) {
+  uploadFiles(req, res) {
     try {
+      if (!fs.existsSync(UPLOADS_FOLDER_PATH)) {
+        fs.mkdirSync(UPLOADS_FOLDER_PATH, { recursive: true });
+      }
+
       const files = Array.isArray(req.files.reports) ? req.files.reports : [req.files.reports];
       const fileNames = files.map((file) => processFileName(file.name));
       const filePaths = fileNames.map((fileName) => path.join(UPLOADS_FOLDER_PATH, fileName));

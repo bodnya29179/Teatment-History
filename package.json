@@ -9,8 +9,8 @@
     "client-run": "ng serve --open",
     "client-build": "ng build --base-href ./",
     "electron-run": "electron .",
-    "electron-pack": "npx electron-builder",
-    "server": "nodemon server/server.js"
+    "electron-pack": "electron-builder",
+    "server": "npm --prefix ./server run start"
   },
   "build": {
     "appId": "com.electron.treatmenthistory",
@@ -21,14 +21,19 @@
     },
     "files": [
       "./dist/**/*",
-      "./server/**/*",
-      "./main.js",
-      "./node_modules/{uuid,archiver,archiver-utils,unzipper,json-server,express,express-fileupload,body-parser}/**/*"
+      {
+        "from": "./server",
+        "to": "./server",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "./server/node_modules",
+        "to": "./server/node_modules",
+        "filter": ["**/*"]
+      },
+      "./main.js"
     ],
-    "asarUnpack": [
-      "./server/**",
-      "./node_modules/{uuid,archiver,archiver-utils,unzipper,json-server,express,express-fileupload,body-parser}/**/*"
-    ],
+    "asarUnpack": ["./server/**", "./server/node_modules"],
     "win": {
       "target": "nsis",
       "icon": "src/assets/icons/favicon.ico"
@@ -56,15 +61,8 @@
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
     "@types/electron": "^1.6.10",
-    "archiver": "^7.0.1",
-    "body-parser": "^1.20.3",
-    "express": "^4.21.0",
-    "express-fileupload": "^1.5.1",
-    "json-server": "^0.17.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "unzipper": "^0.12.3",
-    "uuid": "^10.0.0",
     "wait-on": "^8.0.1",
     "zone.js": "~0.14.3"
   },
@@ -74,7 +72,6 @@
     "@angular/compiler-cli": "^17.3.0",
     "electron": "^32.2.0",
     "electron-builder": "^25.1.8",
-    "nodemon": "^3.1.7",
     "npm-run-all": "^4.1.5",
     "typescript": "~5.4.2"
   }

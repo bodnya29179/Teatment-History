@@ -62,7 +62,7 @@ export class VisitFormComponent implements OnInit {
       this.closeForm.emit();
     } else {
       this.treatmentFacadeService.addVisit(this.form.value);
-      this.form.reset();
+      this.resetForm();
     }
   }
 
@@ -84,6 +84,18 @@ export class VisitFormComponent implements OnInit {
 
     this.form.patchValue({
       reports: [...reports.slice(0, index), ...reports.slice(index + 1)],
+    });
+  }
+
+  private resetForm(): void {
+    this.form.reset({
+      doctorName: '',
+      doctorType: undefined,
+      date: undefined,
+      description: '',
+      conclusion: '',
+      address: '',
+      reports: [],
     });
   }
 }
