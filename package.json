@@ -33,7 +33,7 @@
       },
       "./main.js"
     ],
-    "asarUnpack": ["./server/**", "./server/node_modules"],
+    "asarUnpack": ["./server/**"],
     "win": {
       "target": "nsis",
       "icon": "src/assets/icons/favicon.ico"
