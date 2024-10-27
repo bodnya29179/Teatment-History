@@ -1,5 +1,7 @@
 {
   "name": "treatment-history",
+  "author": "Yevhen Bodnia",
+  "keywords": ["treatment", "history", "appointment"],
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {

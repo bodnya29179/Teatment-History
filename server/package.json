@@ -1,5 +1,7 @@
 {
   "name": "server",
+  "author": "Yevhen Bodnia",
+  "keywords": ["treatment", "history", "appointment"],
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
